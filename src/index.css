@@ -1,12 +1,22 @@
 * {
-  background-color: lightslategray;
+  background-color: #bae3ba;
+  background-image: url("https://img.freepik.com/free-psd/green-houseplant-mockup-psd-banner_53876-137827.jpg?w=1380&t=st=1680761935~exp=1680762535~hmac=e4bc1ea6f7a55d99f8bd17e8ca658558248f3a4f6aa56df4b94df53215944331");
+  background-repeat: no-repeat;
 }
 
 body {
-  margin: 0;
+  margin: 30px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.menu-bar {
+  margin-bottom: 20px;
+}
+
+.menu-button {
+  margin-right: 10px;
 }
