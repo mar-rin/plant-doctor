@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Plants from "./Plants";
 import Shop from "./Shop";
@@ -7,7 +7,6 @@ import Navbar from "./Navbar";
 
 function App() {
 
-    const navigate = useNavigate();
 
     return (
     <div className="App">
