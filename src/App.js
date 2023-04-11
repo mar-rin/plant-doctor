@@ -6,7 +6,10 @@ import Shop from "./Shop";
 import Navbar from "./Navbar";
 import {collection, getDocs, addDoc} from "firebase/firestore";
 import {db} from './Utils/firebase';
-
+import './plantDoctor.css';
+import Account from "./components/account";
+import fullLogo from "./images/fullLogo.png";
+import LogInPage from "./components/logInPage";
 
 function App() {
 
@@ -30,11 +33,14 @@ function App() {
 
     return (
     <div className="App">
+        <img src={fullLogo} alt="Logo" className="mainLogo"/>
         <Navbar />
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/my-plants"  element={<Plants allPlants={plants} />} />
             <Route path="/shop" element={<Shop />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/login" element={<LogInPage />} />
         </Routes>
     </div>
 
