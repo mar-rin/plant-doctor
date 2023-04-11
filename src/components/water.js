@@ -27,7 +27,7 @@ export default function Water() {
                             onClick={()=>{handleClickOpen()}}
                             icon= {faDroplet}
                             size={10}
-                            style={{color:"#1d8289"}}
+                            style={{color:"#1d8289",  cursor: "pointer" }}
                         />
                     </Grid>
                 </Grid>

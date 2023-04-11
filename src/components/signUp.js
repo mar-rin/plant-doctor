@@ -76,6 +76,17 @@ function SignUp() {
                                     autoComplete="new-password"
                                 />
                             </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    name="location"
+                                    label="The current country of your plant collection"
+                                    type="text"
+                                    id="location"
+                                 /*   autoComplete="new-password"*/
+                                />
+                            </Grid>
                         </Grid>
                         <Button
                             type="submit"
@@ -102,4 +113,4 @@ function SignUp() {
     );
 }
 
-default export SignUp
+export default SignUp

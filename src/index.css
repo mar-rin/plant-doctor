@@ -1,26 +1,8 @@
-* {
- background-color: #F5F5F5;
-}
-
 body {
-    margin: 30px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.menu-bar {
-    margin-bottom: 20px;
-}
-
-.menu-button {
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.disable-stylesheet {
-    background-color: pink;
-    background-image: url("https://img.freepik.com/free-photo/pothos-plant-pot-bench_53876-133197.jpg?w=1380&t=st=1680773320~exp=1680773920~hmac=348a9de498bc42d3d87a5135d0306cef92964867bd5f43c9da9a1e6ed956c8f5");
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
