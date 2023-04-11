@@ -1,0 +1,278 @@
+* {
+    border-radius: 4px;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    color: #555;
+}
+
+.container {
+    display: flex;
+    padding: 50px;
+}
+
+.leftMenu {
+    flex: 1;
+}
+
+.search {
+    padding: 10px;
+    width: 200px;
+    border: 1px solid gray;
+    font-size: 25px;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: rgb(143, 143, 143);
+}
+::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: pink;
+}
+
+h1 {
+    font-size: 30px;
+    color: #555;
+    font-weight: 300;
+    padding-top: 16px;
+}
+
+.categories {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.category {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 300;
+    padding: 5px;
+}
+
+.c-bold {
+    font-weight: 500;
+}
+.content {
+    flex: 4.9;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0px;
+}
+
+.product {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 300;
+    padding-bottom: 90px;
+    cursor: pointer;
+    position: static;
+}
+
+.product:hover {
+    position: relative;
+}
+
+.productName {
+    font-weight: 400;
+}
+
+.priceText {
+    margin-top: -16px;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.productDescription {
+    font-size: 16px;
+    text-align: center;
+    justify-content: center;
+    font-weight: 300;
+    margin-top: -10px;
+    padding: 0 40px;
+    height: 66px;
+}
+
+img {
+    width: 180px;
+    height: 200px;
+    object-fit: contain;
+    margin-top: -8px;
+    margin-bottom: 10px;
+}
+
+.name {
+    font-weight: 300;
+}
+
+input {
+    min-width: 1px;
+    justify-content: space-around;
+}
+
+input[type="text"] {
+    font-size: 18px;
+}
+
+::placeholder {
+    font-weight: normal;
+}
+
+.prices {
+    width: 166px;
+}
+
+.priceValue {
+    font-size: 16px;
+    font-weight: 300;
+    display: inline-block;
+    width: 160px;
+    text-align: end;
+}
+
+.priceRange {
+    width: 160px;
+    padding-bottom: 20px;
+}
+
+input[type="range"]::-moz-range-track {
+    background: #1c6faa;
+    height: 4px;
+    border-radius: 5px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    background: #1c6faa;
+    height: 4px;
+    border-radius: 5px;
+}
+
+.cart {
+    padding: 20px 30px;
+    padding-top: 50px;
+    width: 300px;
+    height: 760px;
+}
+
+.icons {
+    width: 30px;
+    height: 30px;
+}
+
+.buy-button {
+    background-color: rgb(19, 28, 68);
+    cursor: pointer;
+    height: 36px;
+    width: 200px;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 26px;
+    margin-top: -6px;
+}
+
+.checkout {
+    margin: 10px 20px 20px 0;
+    padding-bottom: 10px;
+}
+
+.prod-price {
+    width: 220px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.prod {
+    display: inline-block;
+    width: 149px;
+    padding-right: 0px;
+    font-weight: 300;
+}
+
+.price {
+    padding-left: 6px;
+    display: inline-block;
+    text-align: right;
+    vertical-align: top;
+    width: 65px;
+    font-weight: 300;
+}
+
+.delete {
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.trash-bin {
+    color: rgb(167, 24, 24);
+    cursor: pointer;
+}
+
+.trash-bin:hover {
+    color: rgb(233, 21, 21);
+    cursor: pointer;
+}
+
+.icon {
+    pointer-events: none;
+}
+
+.object {
+    pointer-events: none;
+}
+
+.cart-data {
+    margin-top: 30px;
+    padding-top: 20px;
+    font-weight: 300;
+}
+
+.total {
+    font-weight: 500;
+    width: 94px;
+}
+
+.aggr {
+    width: 120px;
+}
+
+.empty {
+    display: block;
+    margin-top: 20px;
+    width: 180px;
+}
+
+.separator {
+    border-top: 1px solid #555;
+    margin-top: 30px;
+    border-radius: 0;
+}
+
+.cartload {
+    width: 14px;
+    height: 16px;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    background-color: rgb(19, 28, 68);
+    color: white;
+    vertical-align: center;
+    position: absolute;
+    justify-content: center;
+    margin-left: 8px;
+    padding-left: 5px;
+    padding-bottom: 3px;
+    top: 36px;
+}
+
+.view-cart {
+    height: 30px;
+    width: 200px;
+}

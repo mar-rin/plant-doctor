@@ -1,0 +1,29 @@
+.logo {
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+header {
+    justify-content: center;
+}
+
+#navBar {
+    display: flex;
+}
+
+.menu-button {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+
+#addEvent {
+    justify-content: center;
+    display: flex;
+    font-size: 70px;
+}
+.mainLogo {
+    display: flex;
+    width: 20%;
+}
