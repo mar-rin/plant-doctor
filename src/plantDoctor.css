@@ -9,11 +9,15 @@ header {
 }
 
 #navBar {
-    justify-content: center;
     display: flex;
-    margin-left: 50px;
-    margin-right: 50px;
 }
+
+.menu-button {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+
 #addEvent {
     justify-content: center;
     display: flex;
