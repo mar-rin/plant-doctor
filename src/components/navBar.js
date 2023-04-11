@@ -60,7 +60,7 @@ export default function Navbar(){
                 </Grid>
                 <Grid item xs={3}>
                     <Button className="menu-button"
-                            onClick={()=>{navigate("/logInPage")}}
+                            onClick={()=>{navigate("/login")}}
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
