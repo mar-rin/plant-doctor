@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Home from "./Home";
+import Home from "./components/home";
 import Plants from "./Plants";
 import Shop from "./Shop";
-import Navbar from "./Navbar";
+import Navbar from "./components/navBar";
 import {collection, getDocs, addDoc} from "firebase/firestore";
 import {db} from './Utils/firebase';
 import './plantDoctor.css';

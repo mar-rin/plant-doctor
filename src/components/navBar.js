@@ -10,43 +10,44 @@ export default function Navbar(){
     return(
         <div className="menu-bar" id="navBar">
             <Grid container alignItems="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    <Grid item xs={3}>
+                    <Grid item xs={1}>
                         <Button className="menu-button"
                             onClick={()=>{navigate("/")}}
-                            fullWidth
+                            /*min-width="200px"*/
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                             style={{
-                                backgroundColor:"#4f6059"
+                                backgroundColor:"#4f6059",
+                                width: "200px"
                             }}>
                             Home
                         </Button>
                     </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={1}>
                     <Button className="menu-button"
                             onClick={()=>{navigate("/my-plants")}}
-                            fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                             style={{
-                                backgroundColor:"#4f6059"
+                                backgroundColor:"#4f6059",
+                                width: "200px"
                             }}>
-                        MyPlants
+                        My Plants
                     </Button>
                 </Grid>
                 <Grid item xs={3}>
                     <Button className="menu-button"
                             onClick={()=>{navigate("/shop")}}
-                            fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                             style={{
-                                backgroundColor:"#4f6059"
+                                backgroundColor:"#4f6059",
+                                width: "200px"
                             }}>
                         Shop
                     </Button>
                 </Grid>
-                <Grid item xs={3}>
+                {/*<Grid item xs={3}>
                     <Button className="menu-button"
                             onClick={()=>{navigate("/account")}}
                             fullWidth
@@ -69,7 +70,7 @@ export default function Navbar(){
                             }}>
                         LogIn/SignUp
                     </Button>
-                </Grid>
+                </Grid>*/}
             </Grid>
         </div>
     )
