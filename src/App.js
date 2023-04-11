@@ -1,44 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import Home from "./Home";
-import Plants from "./Plants";
-import Shop from "./Shop";
-import Navbar from "./Navbar";
-import {collection, getDocs, addDoc} from "firebase/firestore";
-import {db} from './Utils/firebase';
-
+import React from "react";
+import './plantDoctor.css';
+import {Routes} from "react-router-dom";
+import {Route} from "react-router-dom";
+import Home from "./components/home"
+import Plants from "./components/plants";
+import Shop from "./components/shop";
+import Account from "./components/account";
+import fullLogo from "./images/fullLogo.png";
+import LogInPage from "./components/logInPage";
 
 function App() {
-
-    const navigate = useNavigate();
-    const [plants, setPlants] = useState([])
-    async function fetchPlants() {
-
-        await getDocs(collection(db, "plants"))
-            .then((querySnapshot) => {
-                const newData = querySnapshot.docs
-                    .map((doc) => ({...doc.data(), id: doc.id}));
-                setPlants(newData);
-            })
-
-    }
-
-    useEffect(()=>{
-        fetchPlants();
-
-    },[])
-
     return (
-    <div className="App">
-        <Navbar />
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/my-plants"  element={<Plants allPlants={plants} />} />
-            <Route path="/shop" element={<Shop />} />
-        </Routes>
-    </div>
-
-  );
+        <div className='App'>
+            <img src={fullLogo} alt="Logo" className="mainLogo"/>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/my-plants" element={<Plants />} />
+                <Route path="/shop" element={<Shop />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="/login" element={<LogInPage />} />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
+

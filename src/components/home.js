@@ -6,6 +6,7 @@ import AddEvent from "./addEvent";
 export default function Home(){
     return(
         <div>
+            <NavBar/>
             <CalendarMain />
             <AddEvent/>
         </div>

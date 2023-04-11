@@ -28,7 +28,7 @@ export default function Fertilize() {
                         onClick={()=>{handleClickOpen()}}
                          icon= {faPoo}
                          size={10}
-                         style={{color:"#582d2a",  cursor: "pointer"}}
+                         style={{color:"#582d2a"}}
                     />
                 </Grid>
             </Grid>

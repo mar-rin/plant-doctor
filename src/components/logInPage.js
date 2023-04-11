@@ -1,12 +1,13 @@
 import fullLogo from "../images/fullLogo.png";
 import React from "react";
-import SignUp from "./signUp";
-import SignIn from "./signIn";
+import SignUp from "./components/signUp";
+import SignIn from "./components/signIn";
 
 export default function LogInPage() {
     return (
         <div className='App'>
-                       <SignIn />
+            <img src={fullLogo} alt="Logo" className="mainLogo"/>
+            <SignIn />
             <h1 align="center" >
                 <b> or </b>
             </h1>
