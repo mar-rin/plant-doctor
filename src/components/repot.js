@@ -28,7 +28,7 @@ export default function Repot() {
                          onClick={()=>{handleClickOpen()}}
                          icon={faWhiskeyGlass}
                          size={10}
-                         style={{color:"#63963c"}}
+                         style={{color:"#63963c",  cursor: "pointer"}}
                     />
                 </Grid>
             </Grid>
