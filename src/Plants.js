@@ -1,12 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from "@mui/material/Typography";
 import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import moment from 'moment';
 
-function Plants(){
-
-    const plants = [
+function Plants(props){
+const [open,setOpen] = useState(false)
+    const [pickedPlant,setPickedPlant] = useState({})
+    console.log(props.allPlants)
+   /* const plants = [
         {
             name: 'Monstera',
             description: 'Green plant with red flower',
@@ -22,31 +29,59 @@ function Plants(){
             description: 'Light green plant with yellow flower',
             imagepath:'https://images.unsplash.com/photo-1650815039316-56b4625f2823?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=327&q=80'
         }
-    ]
+    ]*/
 
-    function aleksei(name) {
-        alert(name)
+    function openPlantDialog(plant) {
+        setOpen(true)
+        setPickedPlant(plant)
+    }
+
+    function handleClose() {
+    setOpen(false)
 
     }
 
-
     return(
         <div>
-            <h1><Typography variant='h2'>THIS IS PLANT PAGE</Typography></h1>
+            <Typography variant='h2'>THIS IS PLANT PAGE</Typography>
 
     <Grid container spacing={3}>
-            {plants.map((alexei,index) => (
-                <Grid item xs={12} md={6} lg={2}>
-                    <Paper key={index} elevation={5} sx={{p: '10px', height: '25vh'}} onClick={() => aleksei(alexei.name)}>
-                       <Typography variant='h4'>{alexei.name}</Typography>
-                        <Typography variant='body'>{alexei.description}</Typography>
+            {props.allPlants.length > 0 && props.allPlants.map((plant,index) => (
+                <Grid item xs={12} md={6} lg={2} key={index}>
+                    <Paper  elevation={5} sx={{p: '10px'}} onClick={() => openPlantDialog(plant)}>
+                       <Typography variant='h4'>{plant.name}</Typography>
+                        <Typography variant='body'>{plant.description}</Typography>
                         <Box sx={{height: '50%'}}>
-                          <a href={alexei.imagepath} target="_blank"><img src={alexei.imagepath} height='100%' /></a>
+                          <img src={plant.imagepath} height='100%' />
                         </Box>
+                        <Typography variant='body'>Date of purchase: {moment.unix(plant.date_of_purchase.seconds).format('DD.MM.YYYY') }</Typography> <br/>
+                        <Typography variant='body'>Fetrilizing: {moment.unix(plant.fertilizing.seconds).format('DD.MM.YYYY')}</Typography> <br/>
+                        <Typography variant='body'>Repot: {moment.unix(plant.repot.seconds).format('DD.MM.YYYY')}</Typography> <br/>
+                        <Typography variant='body'>Watering: {moment.unix(plant.watering.seconds).format('DD.MM.YYYY')}</Typography>
                     </Paper>
                 </Grid>
             ))}
     </Grid>
+            <Dialog
+                onClose={handleClose}
+                aria-labelledby="customized-dialog-title"
+                open={open}
+            >
+                <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+                    {pickedPlant.name}
+                </DialogTitle>
+                <DialogContent dividers>
+                    <Typography gutterBottom>
+                        {pickedPlant.description}
+                    </Typography>
+                    <img src={pickedPlant.imagepath} height='100%' />
+                </DialogContent>
+                <DialogActions>
+                  {/*  <Button autoFocus onClick={handleClose}>
+                        Save changes
+                    </Button>*/}
+                </DialogActions>
+            </Dialog>
            {/* <Paper elevation={5}>
                 {plants[0].name} <br/>
                 {plants[0].description}
