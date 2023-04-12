@@ -6,7 +6,7 @@ export default function Navbar(){
     const navigate = useNavigate();
 
     return(
-        <div className="menu-bar">
+        <div className="menu-bar" >
             <button className="menu-button" onClick={()=>{navigate("/")}}>
                 HOME
             </button>

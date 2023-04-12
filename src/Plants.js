@@ -43,21 +43,50 @@ function Plants(props){
 
     return(
         <div>
-            <Typography variant='h2'>THIS IS PLANT PAGE</Typography>
+            <Typography variant='h2'>Plant collection</Typography>
 
             <Grid container spacing={3}>
                 {props.allPlants.length > 0 && props.allPlants.map((plant,index) => (
-                    <Grid item xs={12} md={6} lg={2} key={index}>
+                    <Grid item xs={12} md={6} lg={3} key={index}>
                         <Paper  elevation={5} sx={{p: '10px'}} onClick={() => openPlantDialog(plant)}>
                             <Typography variant='h4'>{plant.name}</Typography>
                             <Typography variant='body'>{plant.description}</Typography>
-                            <Box sx={{height: '50%'}}>
+                            <Box sx={{mt:3, height: '50%'}}>
                                 <img src={plant.imagepath} height='100%' />
                             </Box>
-                            <Typography variant='body'>Date of purchase: {moment.unix(plant.date_of_purchase.seconds).format('DD.MM.YYYY') }</Typography> <br/>
-                            <Typography variant='body'>Fetrilizing: {moment.unix(plant.fertilizing.seconds).format('DD.MM.YYYY')}</Typography> <br/>
-                            <Typography variant='body'>Repot: {moment.unix(plant.repot.seconds).format('DD.MM.YYYY')}</Typography> <br/>
-                            <Typography variant='body'>Watering: {moment.unix(plant.watering.seconds).format('DD.MM.YYYY')}</Typography>
+                            <Box sx={{mt:1}} display='flex' flexDirection='row' justifyContent='space-between'>
+                                <Box sx={{mt:1}}>
+                                    <Typography variant='body'>Date of purchase:</Typography>
+                                </Box>
+                                <Box sx={{mt:1}}>
+                                    <Typography variant='body'>{moment.unix(plant.date_of_purchase.seconds).format('DD.MM.YYYY') }</Typography>
+                                </Box>
+                            </Box>
+
+                            <Box sx={{mt:1}} display='flex' flexDirection='row' justifyContent='space-between'>
+                                <Box sx={{mt:1}}>
+                                    <Typography variant='body'>Fetrilizing:</Typography>
+                                </Box>
+                                <Box sx={{mt:1}}>
+                                    <Typography variant='body'>{moment.unix(plant.fertilizing.seconds).format('DD.MM.YYYY') }</Typography>
+                                </Box>
+                            </Box>
+                            <Box sx={{mt:1}} display='flex' flexDirection='row' justifyContent='space-between'>
+                                <Box sx={{mt:1}}>
+                                    <Typography variant='body'>Repot:</Typography>
+                                </Box>
+                                <Box sx={{mt:1}}>
+                                    <Typography variant='body'>{moment.unix(plant.repot.seconds).format('DD.MM.YYYY') }</Typography>
+                                </Box>
+                            </Box>
+                            <Box sx={{mt:1}} display='flex' flexDirection='row' justifyContent='space-between'>
+                                <Box sx={{mt:1}}>
+                                    <Typography variant='body'>Watering:</Typography>
+                                </Box>
+                                <Box sx={{mt:1}}>
+                                    <Typography variant='body'>{moment.unix(plant.watering.seconds).format('DD.MM.YYYY') }</Typography>
+                                </Box>
+                            </Box>
                         </Paper>
                     </Grid>
                 ))}
