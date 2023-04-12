@@ -5,9 +5,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import CheckboxLabels from './checkbox';
-import {faDroplet, faWhiskeyGlass} from "@fortawesome/free-solid-svg-icons";
+import {faWhiskeyGlass} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import '../plantDoctor.css'
+
 
 export default function Repot() {
     const [open, setOpen] = React.useState(false);
@@ -21,14 +24,15 @@ export default function Repot() {
     };
 
     return (
-        <div className="menu-bar" id="navBar">
-            <Grid container alignItems="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <div className="menu-bar" id="event">
+            <Grid container spacing={1} direction="column" alignItems="center" justifyContent="center">
                 <Grid item xs={3}>
                     <FontAwesomeIcon
                          onClick={()=>{handleClickOpen()}}
                          icon={faWhiskeyGlass}
-                         size={10}
-                         style={{color:"#63963c",  cursor: "pointer"}}
+                         size={20}
+                         style={{color:"#63963c"}}
+                         cursor="pointer"
                     />
                 </Grid>
             </Grid>
