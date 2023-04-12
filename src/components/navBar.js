@@ -1,7 +1,8 @@
 import React from "react";
-import { useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import Logo from "./linkLogo";
 
 export default function Navbar(){
 
@@ -10,6 +11,11 @@ export default function Navbar(){
     return(
         <div className="menu-bar" id="navBar">
             <Grid container alignItems="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid item xs={3}>
+                    <Logo />
+                </Grid>
+            </Grid>
+            <Grid container spacing={1} direction="row" alignItems="center" justifyContent="center">
                     <Grid item xs={3}>
                         <Button className="menu-button"
                             onClick={()=>{navigate("/")}}
@@ -19,7 +25,7 @@ export default function Navbar(){
                             style={{
                                 backgroundColor:"#4f6059"
                             }}>
-                            Home
+                            Calendar
                         </Button>
                     </Grid>
                 <Grid item xs={3}>
@@ -44,30 +50,6 @@ export default function Navbar(){
                                 backgroundColor:"#4f6059"
                             }}>
                         Shop
-                    </Button>
-                </Grid>
-                <Grid item xs={3}>
-                    <Button className="menu-button"
-                            onClick={()=>{navigate("/account")}}
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                            style={{
-                                backgroundColor:"#4f6059"
-                            }}>
-                        Account
-                    </Button>
-                </Grid>
-                <Grid item xs={3}>
-                    <Button className="menu-button"
-                            onClick={()=>{navigate("/login")}}
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                            style={{
-                                backgroundColor:"#4f6059"
-                            }}>
-                        LogIn/SignUp
                     </Button>
                 </Grid>
             </Grid>
