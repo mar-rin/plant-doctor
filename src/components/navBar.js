@@ -19,13 +19,13 @@ export default function Navbar({ activeUser }){
                 </Grid>*/}
                 <img src={fullLogo} alt="Logo" className="mainLogo" onClick={()=>navigate("/")} />
                 <div className="profile-box" onClick={()=>{navigate("/account")}}>
-                    < AccountCircleIcon  style={{width: "60px", fontSize: "40px"}} />
+                    < AccountCircleIcon  style={{width: "60px", fontSize: "50px"}} />
                     <h3>Hello, {activeUser[0].firstName }! </h3>
                 </div>
             </div>
             <div className="menu-bar" id="navBar">
                 <Grid container spacing={1} direction="row" alignItems="center" justifyContent="center">
-                    <Grid item xs={3}>
+                    <Grid item xs={2}>
                             <Button className="menu-button"
                                 onClick={()=>{navigate("/")}}
                                 /*min-width="200px"*/
@@ -37,8 +37,8 @@ export default function Navbar({ activeUser }){
                                 }}>
                                 Home
                             </Button>
-                        </Grid>
-                    <Grid item xs={1}>
+                    </Grid>
+                    <Grid item xs={2}>
                         <Button className="menu-button"
                                 onClick={()=>{navigate("/my-plants")}}
                                 variant="contained"
@@ -50,7 +50,7 @@ export default function Navbar({ activeUser }){
                             My Plants
                         </Button>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={2}>
                         <Button className="menu-button"
                                 onClick={()=>{navigate("/shop")}}
                                 fullWidth
@@ -86,8 +86,9 @@ export default function Navbar({ activeUser }){
                             LogIn/SignUp
                         </Button>
                     </Grid>*/}
-                </Grid>
+
             </Grid>
         </div>
+    </header>
     )
 }

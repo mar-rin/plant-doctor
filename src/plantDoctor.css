@@ -49,6 +49,7 @@ header {
 }
 .mainLogo {
     height: 80px;
+    cursor: pointer;
 }
 
 .sign-container {
