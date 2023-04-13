@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import fullLogo from "../images/fullLogo.png";
+import transparentLogo from "../images/transparentLogo.png";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function Navbar({ activeUser }){
@@ -12,12 +12,12 @@ export default function Navbar({ activeUser }){
     return(
         <header>
             <div className="head-bar">
-{/*                <Grid container alignItems="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    <Grid item xs={3}>
-                        <Logo />
-                    </Grid>
-                </Grid>*/}
-                <img src={fullLogo} alt="Logo" className="mainLogo" onClick={()=>navigate("/")} />
+                <img src={transparentLogo} alt="Logo" className="mainLogo" onClick={()=>navigate("/")}
+                     style={{
+                         cursor: 'pointer',
+                         width: '300px',
+                         height: 'auto'
+                     }}/>
                 <div className="profile-box" onClick={()=>{navigate("/account")}}>
                     < AccountCircleIcon  style={{width: "60px", fontSize: "50px"}} />
                     <h3>Hello, {activeUser[0].firstName }! </h3>
@@ -62,31 +62,6 @@ export default function Navbar({ activeUser }){
                             Shop
                         </Button>
                     </Grid>
-                    {/*<Grid item xs={3}>
-                        <Button className="menu-button"
-                                onClick={()=>{navigate("/account")}}
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                                style={{
-                                    backgroundColor:"#4f6059"
-                                }}>
-                            Account
-                        </Button>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <Button className="menu-button"
-                                onClick={()=>{navigate("/login")}}
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                                style={{
-                                    backgroundColor:"#4f6059"
-                                }}>
-                            LogIn/SignUp
-                        </Button>
-                    </Grid>*/}
-
             </Grid>
         </div>
     </header>

@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import transparentLeaf from "../images/transparentLeaf.png"
+import Button from "@mui/material/Button";
 
-function AccountDrawer() {
+function AccountDrawer({logOut}) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const drawerRef = useRef(null);
 
@@ -24,6 +25,7 @@ function AccountDrawer() {
 
     return (
         <div>
+            <Button onClick={logOut}>Log out</Button>
             <img
                 src={transparentLeaf}
                 alt="Drawer toggle button"
