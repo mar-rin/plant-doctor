@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "./navBar";
 import CalendarMain from "./calendarMain";
 import AddEvent from "./addEvent";
 

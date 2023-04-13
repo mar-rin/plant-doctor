@@ -8,6 +8,10 @@ import CheckboxLabels from './checkbox';
 import {faDroplet} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import '../plantDoctor.css'
+
+
 export default function Water() {
     const [open, setOpen] = React.useState(false);
 
@@ -20,27 +24,28 @@ export default function Water() {
     };
 
     return (
-            <div className="menu-bar" id="navBar">
-                <Grid container alignItems="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    <Grid item xs={3}>
-                        <FontAwesomeIcon
-                            onClick={()=>{handleClickOpen()}}
-                            icon= {faDroplet}
-                            size={10}
-                            style={{color:"#1d8289",  cursor: "pointer" }}
-                        />
-                    </Grid>
+        <div className="menu-bar" id="event">
+            <Grid container spacing={1} direction="column" alignItems="center" justifyContent="center">
+                <Grid item xs={3}>
+                    <FontAwesomeIcon
+                        onClick={()=>{handleClickOpen()}}
+                        icon= {faDroplet}
+                        size={20}
+                        style={{color:"#1d8289"}}
+                        cursor="pointer"
+                    />
                 </Grid>
-                <Dialog open={open} onClose={handleClose}>
-                    <DialogTitle>Choose plant:</DialogTitle>
-                    <DialogContent>
-                        <CheckboxLabels/>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handleClose}>Add</Button>
-                    </DialogActions>
-                </Dialog>
-            </div>
+            </Grid>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>Choose plant:</DialogTitle>
+                <DialogContent>
+                    <CheckboxLabels/>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>Add</Button>
+                </DialogActions>
+            </Dialog>
+        </div>
     );
 }

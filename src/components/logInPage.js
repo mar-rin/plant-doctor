@@ -1,16 +1,19 @@
-import fullLogo from "../images/fullLogo.png";
 import React from "react";
 import SignUp from "./signUp";
 import SignIn from "./signIn";
 
-export default function LogInPage() {
+export default function LogInPage({ handleLogIn, handleSignUp }) {
     return (
-        <div className='App'>
-                       <SignIn />
+        <div className='sign-container'>
+            <SignIn
+                handleLogIn={handleLogIn}
+            />
             <h1 align="center" >
                 <b> or </b>
             </h1>
-            <SignUp />
+            <SignUp
+                handleSignUp={handleSignUp}
+            />
         </div>
     );
 }

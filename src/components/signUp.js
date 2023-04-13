@@ -1,47 +1,34 @@
+import '../plantDoctor.css';
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const theme = createTheme();
 
-function SignUp() {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
+function SignUp({ handleSignUp }) {
+
 
     return (
-        <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 2,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSignUp} noValidate sx={{ mt: 1 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    autoComplete="given-name"
-                                    name="firstName"
                                     required
                                     fullWidth
                                     id="firstName"
+                                    name="firstName"
                                     label="First Name"
+                                    autoComplete="first-name"
                                     autoFocus
                                 />
                             </Grid>
@@ -70,7 +57,7 @@ function SignUp() {
                                     required
                                     fullWidth
                                     name="password"
-                                    label="Password"
+                                    label="Password, at least 6 characters"
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
@@ -81,10 +68,10 @@ function SignUp() {
                                     required
                                     fullWidth
                                     name="location"
-                                    label="The current country of your plant collection"
+                                    label="The city (or nearby city) of your plant collection"
                                     type="text"
                                     id="location"
-                                 /*   autoComplete="new-password"*/
+
                                 />
                             </Grid>
                         </Grid>
@@ -99,17 +86,10 @@ function SignUp() {
                         >
                             Sign Up
                         </Button>
-                        <Grid container justifyContent="flex-end">
-                            <Grid item>
-                                <Link href="#" variant="body2">
-                                    Already have an account? Sign in
-                                </Link>
-                            </Grid>
-                        </Grid>
                     </Box>
                 </Box>
             </Container>
-        </ThemeProvider>
+
     );
 }
 
