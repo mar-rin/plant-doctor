@@ -1,3 +1,5 @@
+import '../plantDoctor.css';
+import React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -5,22 +7,15 @@ import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import fullLogo from '../images/fullLogo.png';
-import '../plantDoctor.css';
 
-function SignIn() {
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get("email"),
-            password: data.get("password"),
-        });
-    };
+
+function SignIn({ handleLogIn }) {
+
 
     return (
             <Container component="main" maxWidth="xs">
-                <img src={fullLogo} alt="Logo" className="logo"/>
+                <img src={fullLogo} alt="Logo" className="logo-login"/>
                 <Box
                     sx={{
                         display: "flex",
@@ -28,7 +23,7 @@ function SignIn() {
                         alignItems: "center",
                     }}
                 >
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleLogIn} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -49,11 +44,12 @@ function SignIn() {
                             id="password"
                             autoComplete="current-password"
                         />
-                        <FormControlLabel
+{/*                        <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"
-                        />
+                        />*/}
                         <Button
+                            sx={{ mt: 2 }}
                             type="submit"
                             fullWidth
                             variant="contained"
