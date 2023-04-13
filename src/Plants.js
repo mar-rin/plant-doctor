@@ -7,6 +7,9 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 import moment from 'moment';
 
 function Plants(props){
@@ -44,11 +47,25 @@ function Plants(props){
     return(
         <div>
             <Typography variant='h2'>Plant collection</Typography>
-
+            <Box  sx={{m: 2, mt:1}} display='flex' flexDirection='row' justifyContent='right'>
+                <Button  startIcon={<AddIcon />}
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                        style={{
+                                backgroundColor:"#4f6059"}}>
+                    Add Plant
+                </Button>
+                </Box>
             <Grid container spacing={3}>
                 {props.allPlants.length > 0 && props.allPlants.map((plant,index) => (
                     <Grid item xs={12} md={6} lg={3} key={index}>
                         <Paper  elevation={5} sx={{p: '10px'}} onClick={() => openPlantDialog(plant)}>
+                            <Button startIcon={<DeleteIcon/>}
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    style={{
+                                        backgroundColor:"#4f6059"}}>
+                            </Button>
                             <Typography variant='h4'>{plant.name}</Typography>
                             <Typography variant='body'>{plant.description}</Typography>
                             <Box sx={{mt:3, height: '50%'}}>
