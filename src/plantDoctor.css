@@ -1,11 +1,15 @@
-
+body {
+    background-image:url("./images/backGround.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
 .logo-login {
-    padding-top: 10px;
-    padding-left: 56px;
     margin-bottom: -20px;
     display: flex;
     justify-content: center;
-    width: 70%;
+    width: 100%;
 }
 
 header {
@@ -51,12 +55,6 @@ header {
     height: 80px;
     cursor: pointer;
 }
-
-.sign-container {
-}
-
 .profile-box {
     cursor: pointer;
 }
-
-

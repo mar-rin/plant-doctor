@@ -8,22 +8,20 @@ import {collection, doc, setDoc, getDocs} from "firebase/firestore";
 import {db} from './Utils/firebase';
 import './plantDoctor.css';
 import Account from "./components/account";
-import fullLogo from "./images/fullLogo.png";
 import LogInPage from "./components/logInPage";
-import AccountDrawer from "./components/account";
-import backGround from './images/backGround.png'
-
+import Cookies from "universal-cookie"
 
 function App() {
 
     const navigate = useNavigate();
     const [plants, setPlants] = useState([]);
     const [registeredUsers, setRegisteredUsers] = useState([]);
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [activeUser, setActiveUser] = useState("");
     const usersRef = collection(db, "users");
     const plantsRef = collection(db, "plants");
 
+    let cookies = new Cookies();
+
+    const [activeUser, setActiveUser] = useState(cookies.get("activeUser"));
 
     async function fetchUsers() {
         await getDocs(usersRef)
@@ -55,10 +53,12 @@ function App() {
         const result = registeredUsers.filter((user) =>
             user.password===input.get("password") && user.email===input.get("email"));
         if (result.length>0) {
-            setLoggedIn(true);
+            cookies.set("activeUser", result);
             setActiveUser(result);
-        }else{alert("These credentials are not registered. Check your email and password, or sign up below!")}
-        console.log("PLants[0] from App: " + plants[0].name)
+        } else {
+            alert("These credentials are not registered. Check your email and password, or sign up below!");
+        }
+        console.log("Plants[0] from App: " + plants[0].name)
         console.log("RegUsers[0].name from App: " + registeredUsers[0].firstName)
     }
 
@@ -67,69 +67,63 @@ function App() {
         event.preventDefault();
         const input = new FormData(event.currentTarget);
         const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        if (!regex.test(input.get("email"))){
+        if (!regex.test(input.get("email"))) {
             alert("The email you provided does not seem valid. Please check your input!")
         } else if (input.get("password").length<6){
             alert("The password you provided is too weak. Please enter a longer one!")
         } else {
-            await setDoc(doc(usersRef, input.get("email")), {
+            let user = {
                 firstName: input.get("firstName"),
                 lastName: input.get("lastName"),
                 email: input.get("email"),
                 password: input.get("password"),
-                location: input.get("location")})
-            setActiveUser([{
-                firstName: input.get("firstName"),
-                lastName: input.get("lastName"),
-                email: input.get("email"),
-                password: input.get("password"),
-                location: input.get("location")}]);
-            setLoggedIn(true);
+                location: input.get("location")
+            };
+            await setDoc(doc(usersRef, input.get("email")), user);
+            cookies.set("activeUser", user);
+            setActiveUser(user);
         }
     }
-
     return (
-        <div className="App"
-             style={{
-                 backgroundImage:`url(${backGround})`,
-                 backgroundRepeat:"no-repeat",
-                 backgroundSize:"cover",
-                 width: '100vw',
-                 height: '100vh',
-                 backgroundPosition: 'center',
-             }}
-        >
-        { (loggedIn)
-        ? ( <>
-           <Navbar activeUser={activeUser} />
+        <div className="App">
+            { activeUser
+            ? ( <>
+               <Navbar
+                   activeUser={activeUser} />
+                    <Routes>
+                        <Route path="/" element={<Home
+                            user={activeUser}
+                            allPlants={plants}
+                        />} />
+                        <Route path="/my-plants"  element={<Plants
+                            user={activeUser}
+                            allPlants={plants}
+                        />} />
+                        <Route path="/shop" element={<Shop
+                            user={activeUser}
+                        />} />
+                        <Route path="/account" element={<Account
+                            user={activeUser}
+                            allPlants={plants}
+                            logOut={() => {
+                                cookies.remove("activeUser");
+                                setActiveUser(null);
+                                navigate("/");
+                            }}
+                        />} />
+                    </Routes>
+                </>)
+            : (<>
                 <Routes>
-                    <Route path="/" element={<Home
-                        user={activeUser}
-                        allPlants={plants}
-                    />} />
-                    <Route path="/my-plants"  element={<Plants
-                        user={activeUser}
-                        allPlants={plants}
-                    />} />
-                    <Route path="/shop" element={<Shop
-                        user={activeUser}
-                    />} />
-                    <Route path="/account" element={<Account
-                        user={activeUser}
-                        allPlants={plants}
+                    <Route path="/" element={<LogInPage
+                        handleLogIn={handleLogIn}
+                        handleSignUp={handleSignUp}
                     />} />
                 </Routes>
-            </>)
-        : (<>
-            <Routes>
-                <Route path="/" element={<LogInPage
-                    handleLogIn={handleLogIn}
-                    handleSignUp={handleSignUp}
-                />} />
-            </Routes>
-            </>)
-        }
-    </div>)
+                </>)
+            }
+        </div>
+    )
 }
 
 export default App;
