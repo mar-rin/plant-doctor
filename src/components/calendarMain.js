@@ -7,6 +7,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 
 function fakeFetch(date, { signal }) {
     return new Promise((resolve, reject) => {
@@ -88,21 +90,29 @@ export default function DateCalendarServerRequest() {
     };
 
     return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar
-                defaultValue={initialValue}
-                loading={isLoading}
-                onMonthChange={handleMonthChange}
-                renderLoading={() => <DayCalendarSkeleton />}
-                slots={{
-                    day: ServerDay,
-                }}
-                slotProps={{
-                    day: {
-                        highlightedDays,
-                    },
-                }}
-            />
-        </LocalizationProvider>
-    );
+        <div className="menu-bar" id="navBar">
+            <Grid container spacing={1} direction="row" alignItems="center" justifyContent="center">
+                <Paper elevation={5} sx={{p: '10px'}}>
+                    <Grid item xs={3}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateCalendar
+                                defaultValue={initialValue}
+                                loading={isLoading}
+                                onMonthChange={handleMonthChange}
+                                renderLoading={() => <DayCalendarSkeleton />}
+                                slots={{
+                                    day: ServerDay,
+                                }}
+                                slotProps={{
+                                    day: {
+                                        highlightedDays,
+                                    },
+                                }}
+                            />
+                        </LocalizationProvider>
+                    </Grid>
+                </Paper>
+            </Grid>
+        </div>
+    )
 }

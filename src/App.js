@@ -10,6 +10,8 @@ import './plantDoctor.css';
 import Account from "./components/account";
 import fullLogo from "./images/fullLogo.png";
 import LogInPage from "./components/logInPage";
+import AccountDrawer from "./components/account";
+import backGround from './images/backGround.png'
 
 
 function App() {
@@ -87,7 +89,16 @@ function App() {
     }
 
     return (
-        <div className="App">
+        <div className="App"
+             style={{
+                 backgroundImage:`url(${backGround})`,
+                 backgroundRepeat:"no-repeat",
+                 backgroundSize:"cover",
+                 width: '100vw',
+                 height: '100vh',
+                 backgroundPosition: 'center',
+             }}
+        >
         { (loggedIn)
         ? ( <>
            <Navbar activeUser={activeUser} />

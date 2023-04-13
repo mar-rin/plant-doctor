@@ -33,6 +33,19 @@ header {
     justify-content: center;
     display: flex;
     font-size: 70px;
+    padding-top: 40px;
+
+}
+/*.mainLogo {*/
+/*    display: flex;*/
+/*    width: 20%;*/
+/*}*/
+
+#event {
+    justify-content: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 25px;
 }
 .mainLogo {
     height: 80px;

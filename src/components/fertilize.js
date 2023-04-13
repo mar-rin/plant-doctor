@@ -8,6 +8,8 @@ import CheckboxLabels from './checkbox';
 import {faPoo} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import '../plantDoctor.css'
 
 export default function Fertilize() {
     const [open, setOpen] = React.useState(false);
@@ -21,14 +23,15 @@ export default function Fertilize() {
     };
 
     return (
-        <div className="menu-bar" id="navBar">
-            <Grid container alignItems="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <div className="menu-bar" id="event">
+            <Grid container spacing={1} direction="column" alignItems="center" justifyContent="center">
                 <Grid item xs={3}>
                     <FontAwesomeIcon
                         onClick={()=>{handleClickOpen()}}
                          icon= {faPoo}
-                         size={10}
-                         style={{color:"#582d2a",  cursor: "pointer"}}
+                         size={20}
+                         style={{color:"#582d2a"}}
+                         cursor="pointer"
                     />
                 </Grid>
             </Grid>
