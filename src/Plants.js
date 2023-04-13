@@ -15,6 +15,7 @@ import moment from 'moment';
 function Plants(props){
     const [open,setOpen] = useState(false)
     const [pickedPlant,setPickedPlant] = useState({})
+    const [allPlants,setAllPlants] = useState(props.allPlants)
     console.log(props.allPlants)
     /* const plants = [
     {
@@ -44,6 +45,14 @@ function Plants(props){
 
     }
 
+    function deletePlant(index){
+        setOpen(false)
+        allPlants.splice(index, 1)
+        console.log(allPlants)
+        setAllPlants(allPlants)
+
+    }
+
     return(
         <div>
             <Typography variant='h2'>Plant collection</Typography>
@@ -57,15 +66,19 @@ function Plants(props){
                 </Button>
             </Box>
             <Grid container spacing={3}>
-                {props.allPlants.length > 0 && props.allPlants.map((plant,index) => (
+                {allPlants.length > 0 && allPlants.map((plant,index) => (
                     <Grid item xs={12} md={6} lg={3} key={index}>
                         <Paper  elevation={5} sx={{p: '10px'}} onClick={() => openPlantDialog(plant)}>
-                            <Button startIcon={<DeleteIcon/>}
+                            <Box  sx={{p:1}} display='flex' flexDirection='row' justifyContent='right'>
+                                <Button startIcon={<DeleteIcon/>}
                                     variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
+                                        onClick={() => deletePlant(index)}
                                     style={{
-                                        backgroundColor:"#4f6059"}}>
-                            </Button>
+                                        backgroundColor:"#4f6059", zIndex: 99999}}
+                                    sx={{zIndex: 99999}}
+                                >
+                                </Button>
+                            </Box>
                             <Typography variant='h4'>{plant.name}</Typography>
                             <Typography variant='body'>{plant.description}</Typography>
                             <Box sx={{mt:3, height: '50%'}}>
@@ -109,6 +122,7 @@ function Plants(props){
                 ))}
             </Grid>
             <Dialog
+
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
                 open={open}
@@ -116,11 +130,44 @@ function Plants(props){
                 <DialogTitle id="customized-dialog-title" onClose={handleClose}>
                     {pickedPlant.name}
                 </DialogTitle>
+                <img src={pickedPlant.imagepath} height='100%' />
                 <DialogContent dividers>
                     <Typography gutterBottom>
                         {pickedPlant.description}
                     </Typography>
-                    <img src={pickedPlant.imagepath} height='100%' />
+
+                    <Box sx={{mt:1}} display='flex' flexDirection='row' justifyContent='space-between'>
+                        <Box sx={{mt:1}}>
+                            <Typography variant='body'>Date of purchase:</Typography>
+                        </Box>
+                        <Box sx={{mt:1}}>
+                            {/*<Typography variant='body'>{moment.unix(pickedPlant.date_of_purchase.seconds).format('DD.MM.YYYY') }</Typography>*/}
+                        </Box>
+                    </Box>
+                    <Box sx={{mt:1}} display='flex' flexDirection='row' justifyContent='space-between'>
+                        <Box sx={{mt:1}}>
+                            <Typography variant='body'>Fetrilizing:</Typography>
+                        </Box>
+                        <Box sx={{mt:1}}>
+                            {/*<Typography variant='body'>{moment.unix(pickedPlant.fertilizing.seconds).format('DD.MM.YYYY') }</Typography>*/}
+                        </Box>
+                    </Box>
+                    <Box sx={{mt:1}} display='flex' flexDirection='row' justifyContent='space-between'>
+                        <Box sx={{mt:1}}>
+                            <Typography variant='body'>Repot:</Typography>
+                        </Box>
+                        <Box sx={{mt:1}}>
+                            {/*<Typography variant='body'>{moment.unix(pickedPlant.repot.seconds).format('DD.MM.YYYY') }</Typography>*/}
+                        </Box>
+                    </Box>
+                    <Box sx={{mt:1}} display='flex' flexDirection='row' justifyContent='space-between'>
+                        <Box sx={{mt:1}}>
+                            <Typography variant='body'>Watering:</Typography>
+                        </Box>
+                        <Box sx={{mt:1}}>
+                            {/*<Typography variant='body'>{moment.unix(pickedPlant.watering.seconds).format('DD.MM.YYYY') }</Typography>*/}
+                        </Box>
+                    </Box>
                 </DialogContent>
                 <DialogActions>
                     {/*  <Button autoFocus onClick={handleClose}>
