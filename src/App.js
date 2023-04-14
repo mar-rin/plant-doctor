@@ -88,6 +88,7 @@ function App() {
         }
     }
 
+    console.log(plants, "plants here")
     return (
         <div className="App"
              style={{
