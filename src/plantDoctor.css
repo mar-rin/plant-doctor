@@ -1,3 +1,17 @@
+body {
+    margin: 0 -10px;
+
+}
+
+.app {
+    background-image: url('../src/images/backGround.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    background-position: center;
+}
+
 
 .logo-login {
     padding-top: 10px;
@@ -9,23 +23,22 @@
 }
 
 header {
-    margin: 40px 110px 30px 50px;
-
+    padding: 30px 50px 0 50px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .head-bar {
-    display: flex;
+    display: inline-block;
     justify-content: space-between;
-    margin-top: 30px;
+    cursor: pointer;
 }
 
 #navBar {
-    display: flex;
+    min-width: 600px;
 }
 
 .menu-button {
-    padding-right: 20px;
-    padding-left: 20px;
 }
 
 
@@ -55,8 +68,18 @@ header {
 .sign-container {
 }
 
-.profile-box {
-    cursor: pointer;
+.start {
+    align-content: start;
 }
+
+.center {
+    align-content: center;
+}
+
+.end {
+    align-content: end;
+}
+
+
 
 

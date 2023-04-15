@@ -67,10 +67,10 @@ function SignUp({ handleSignUp }) {
                                 <TextField
                                     required
                                     fullWidth
-                                    name="location"
-                                    label="The city (or nearby city) of your plant collection"
+                                    name="username"
+                                    label="Choose a username..."
                                     type="text"
-                                    id="location"
+                                    id="username"
 
                                 />
                             </Grid>

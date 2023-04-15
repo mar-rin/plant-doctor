@@ -28,10 +28,10 @@ function SignIn({ handleLogIn }) {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            id="username"
+                            label="username"
+                            name="username"
+                            autoComplete="username"
                             autoFocus
                         />
                         <TextField
