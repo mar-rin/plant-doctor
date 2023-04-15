@@ -45,8 +45,16 @@ function Plants(props){
     }
 
     return(
-        <div>
-            <Typography variant='h2'>Plant collection</Typography>
+        <div style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+            width: '75%',
+            height: 'auto',
+            padding: '10px',
+            marginTop: '20px',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+        }}>
+            <Typography variant='h2' style={{ fontSize: "3rem" }}>Plant collection</Typography>
             <Box  sx={{m: 2, mt:1}} display='flex' flexDirection='row' justifyContent='right'>
                 <Button  startIcon={<AddIcon />}
                          variant="contained"

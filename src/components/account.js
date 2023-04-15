@@ -14,7 +14,7 @@ function Account({logOut, user}) {
                 height: '700px',
                 margin: 'auto',
             }}>
-        <h1>My account</h1>
+        <h1 style={{ fontSize: "3rem" }}>My account</h1>
                 <Grid container spacing={1} direction="column" alignItems="center" justifyContent="center">
                     <Grid item xs={2}>
                         <Paper elevation={5} style={{

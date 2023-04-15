@@ -4,6 +4,9 @@ body {
     background-position: center center;
     background-attachment: fixed;
     background-size: cover;
+    font-family: Roboto;
+    text-align: center;
+
 }
 .logo-login {
     margin-bottom: -20px;
@@ -27,6 +30,7 @@ header {
     display: flex;
     justify-content: center;
     background: white;
+    margin: auto;
 }
 
 .menu-button {
