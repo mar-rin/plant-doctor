@@ -25,6 +25,8 @@ header {
 
 #navBar {
     display: flex;
+    justify-content: center;
+    background: white;
 }
 
 .menu-button {

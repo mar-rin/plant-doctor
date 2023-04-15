@@ -12,6 +12,7 @@ export default function Home(){
                 width: '1150px',
                 height: '700px',
                 margin: 'auto',
+                marginTop: '20px',
             }}>
                 <Grid container spacing={1} direction="column" alignItems="center" justifyContent="center">
                     <Grid item xs={2}>

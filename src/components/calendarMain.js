@@ -90,7 +90,7 @@ export default function DateCalendarServerRequest() {
     };
 
     return (
-        <div className="menu-bar" id="navBar">
+        <div className="calendar" id="calendar">
             <Grid container spacing={1} direction="row" alignItems="center" justifyContent="center">
                 <Paper elevation={5} sx={{p: '10px'}}>
                     <Grid item xs={3}>

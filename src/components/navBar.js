@@ -10,21 +10,18 @@ export default function Navbar({ activeUser }){
     const navigate = useNavigate();
 
     return(
-        <header>
-            <div className="head-bar">
-                <img src={transparentLogo} alt="Logo" className="mainLogo" onClick={()=>navigate("/")}
-                     style={{
-                         cursor: 'pointer',
-                         width: '300px',
-                         height: 'auto'
-                     }}/>
-                <div className="profile-box" onClick={()=>{navigate("/account")}}>
-                    < AccountCircleIcon  style={{width: "60px", fontSize: "50px"}} />
-                    <h3>Hello, {activeUser[0].firstName }! </h3>
-                </div>
-            </div>
             <div className="menu-bar" id="navBar">
-                <Grid container spacing={1} direction="row" alignItems="center" justifyContent="center">
+                <Grid container spacing={2} direction="row" alignItems="center" justifyContent="center">
+                    <Grid item xs={2}>
+                        <img src={transparentLogo} alt="Logo" className="mainLogo" onClick={()=>navigate("/")}
+                             style={{
+                                 cursor: 'pointer',
+                                 width: '100%',
+                                 height: '100%',
+                                 objectFit: 'contain',
+                                 marginTop: '20px'
+                             }}/>
+                    </Grid>
                     <Grid item xs={2}>
                             <Button className="menu-button"
                                 onClick={()=>{navigate("/")}}
@@ -35,7 +32,7 @@ export default function Navbar({ activeUser }){
                                 style={{
                                     backgroundColor:"#4f6059"
                                 }}>
-                                Home
+                                Calendar
                             </Button>
                     </Grid>
                     <Grid item xs={2}>
@@ -62,8 +59,18 @@ export default function Navbar({ activeUser }){
                             Shop
                         </Button>
                     </Grid>
+                    <Grid item xs={2}>
+                        <div className="head-bar">
+                            <div className="profile-box" onClick={()=>{navigate("/account")}}
+                            style={{
+                                marginLeft: '20px',
+                                }}>
+                                < AccountCircleIcon  style={{width: "80px", fontSize: "80px"}} />
+                                <h3>Hello, {activeUser[0].firstName }! </h3>
+                            </div>
+                        </div>
+                    </Grid>
             </Grid>
         </div>
-    </header>
     )
 }

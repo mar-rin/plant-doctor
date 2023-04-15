@@ -1,63 +1,51 @@
-import React, { useState, useRef, useEffect } from 'react';
-import transparentLeaf from "../images/transparentLeaf.png"
+import React, { useRef} from 'react';
 import Button from "@mui/material/Button";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 
-function AccountDrawer({logOut}) {
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const drawerRef = useRef(null);
-
-    const handleImageClick = () => {
-        setIsDrawerOpen(!isDrawerOpen);
-    };
-
-    const handleClickOutside = (event) => {
-        if (drawerRef.current && !drawerRef.current.contains(event.target)) {
-            setIsDrawerOpen(false);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
+function Account({logOut, user}) {
 
     return (
         <div>
-            <Button onClick={logOut}>Log out</Button>
-            <img
-                src={transparentLeaf}
-                alt="Drawer toggle button"
-                onClick={handleImageClick}
-                style={{
-                    position: 'fixed',
-                    top: '0',
-                    right: '0',
-                    width: '100px',
-                    height: '100px',
-                    cursor: 'pointer',
-                }}
-            />
-            {isDrawerOpen && (
-                <div
-                    ref={drawerRef}
-                    style={{
-                        position: 'fixed',
-                        top: '0',
-                        right: '0',
-                        height: '100%',
-                        width: '30%',
-                        backgroundColor: 'white',
-                        boxShadow: '0 0 10px rgba(0,0,0,0.3)',
-                        padding: '20px',
-                        boxSizing: 'border-box',
-                    }}
-                >
-                    <p>This is the temporary drawer content.</p>
-                </div>
-            )}
+            <div style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                width: '1150px',
+                height: '700px',
+                margin: 'auto',
+            }}>
+        <h1>My account</h1>
+                <Grid container spacing={1} direction="column" alignItems="center" justifyContent="center">
+                    <Grid item xs={2}>
+                        <Paper elevation={5} style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            padding: '30px',
+                            width: '300px',
+                            height: '500px'
+                        }}>
+                            <AccountCircleIcon  style={{width: "200px", fontSize: "200px"}} />
+                                <h3> First name: {user[0].firstName } </h3>
+                                <h3> Last name: {user[0].lastName } </h3>
+                                <h3> E-mail: {user[0].email } </h3>
+                                <h3> Location: {user[0].location } </h3>
+                            <Button className="menu-button"
+                                    onClick={logOut}
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    style={{
+                                        backgroundColor:"#4f6059"
+                                    }}>
+                                Log Out
+                            </Button>
+                        </Paper>
+                    </Grid>
+                </Grid>
+            </div>
         </div>
-    );
+    )
 }
-export default AccountDrawer
+
+export default Account

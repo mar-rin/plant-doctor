@@ -55,13 +55,12 @@ export default function Shop() {
 
 
     return (
-        <div className="container">
+        <div className="container" style={{display: 'flex', flexDirection: 'row'}}>
             <div className="leftMenu"
                  style={{
                      backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                     width: '1150px',
-                     height: '900px',
-                     margin: 'auto',
+                     width: '25%',
+                     height: '100vh',
                      padding: '10px'
                  }}>
                 <Search handleSearch={handleSearch} />
@@ -75,9 +74,8 @@ export default function Shop() {
             <div className="content"
                  style={{
                      backgroundColor: 'white',
-                     width: '1150px',
-                     height: '900px',
-                     margin: 'auto',
+                     width: '75%',
+                     height: 'auto',
                      padding: '10px'
                  }}>
                 <Products
@@ -95,8 +93,8 @@ export default function Shop() {
                 </Drawer> :
                 <button className="view-cart" onClick={()=>setOpen(true)}>View Cart</button>
             }
-
         </div>
+
     );
 }
 
