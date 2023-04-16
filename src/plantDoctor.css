@@ -80,6 +80,14 @@ header {
     align-content: end;
 }
 
+/*slider in humidity*/
+.css-1z13ce1 {
+    margin: auto;
+}
 
+/*humidity meter*/
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+    padding: 20px;
+}
 
 

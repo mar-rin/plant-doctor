@@ -23,24 +23,32 @@ function App() {
     const [registeredUsers, setRegisteredUsers] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
     const [activeUser, setActiveUser] = useState("");
-    const sessionUsername = sessionStorage.getItem("username");
-    const sessionPassword = sessionStorage.getItem("password");
+    const sessionUser = JSON.parse(sessionStorage.getItem("user"));
 //states for plants
     const plantsRef = collection(db, "plants");
     const [allPlants, setAllPlants] = useState([]);
     const [plants, setPlants] = useState([]);
-    const sessionUserPlants = sessionStorage.getItem("userPlants");
+    const sessionUserPlants = JSON.parse(sessionStorage.getItem("userPlants"));
+    const [wateringDates, setWateringDates] = useState([]);
+    const [pottingDates, setPottingDates] = useState([]);
+    const [fertingDates, setFertingDates] = useState([]);
+    let foundWater = [];
+    let foundFert = [];
+    let foundPot = [];
+    const [humidity, setHumidity] = useState(50);
 //states for dates
-    const [usefulDates, setUsefulDates] = useState([20]);
+    const [usefulDates, setUsefulDates] = useState([]);
     const [activeDate, setActiveDate] = useState("");
-    const sessionDates = sessionStorage.getItem("dates");
+    const sessionDates = JSON.parse(sessionStorage.getItem("dates"));
     const [dutiesByPlant, setDutiesByPlant] = useState([]);
     const sessionDuties = JSON.parse(sessionStorage.getItem("duties"));
+    let wateringStep = 7;
+    let pottingStep = 225;
+    let fertingStep = 180;
 //states for interactive elements
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [close, setClose] = useState(false);
-
 
 
 
@@ -65,13 +73,12 @@ function App() {
                             .map((doc) => ({...doc.data(), id: doc.id}));
                         setAllPlants(newData);
                     })};
-        if (sessionUsername && sessionPassword) {
+        if (sessionUser) {
             setLoggedIn(true);
-            setActiveUser([{username: sessionUsername, password: sessionPassword}])
-            setPlants(sessionUserPlants.split(","));
-            setUsefulDates(sessionDates.split(","));
+            setActiveUser([sessionUser])
+            setPlants(sessionUserPlants);
+            setUsefulDates(sessionDates);
             setDutiesByPlant(sessionDuties);
-
         } else {
             fetchUsers();
             fetchPlants();}
@@ -80,30 +87,36 @@ function App() {
 
 
 //HANDLING LOGIN & SIGNUP
-    function handleLogIn (event) {
-        event.preventDefault();
-        const input = new FormData(event.currentTarget);
-        const result = registeredUsers.filter((user) =>
-            user.password===input.get("password") && user.username===input.get("username"));
-        if (result.length>0) {
-            setLoggedIn(true);
-            setActiveUser(result);
-            const userPlants = allPlants.filter((plant) => plant.owner===input.get("username"));
-            let dates = findSchedule(userPlants);
-            setUsefulDates(dates);
-            let duties = findDuties(userPlants);
-            setDutiesByPlant(duties);
-/*            console.log("IS this Duties thing working? " + duties[0].activities.watering)*/
-            //THis here is working as well
-            sessionStorage.setItem("username", result[0].username);
-            sessionStorage.setItem("password", result[0].password);
-            sessionStorage.setItem("userPlants", userPlants);
-            sessionStorage.setItem("dates", dates);
-            sessionStorage.setItem("duties", JSON.stringify(duties));
+    async function handleLogIn (event) {
+        if (allPlants && registeredUsers) {
+            event.preventDefault();
+            const input = new FormData(event.currentTarget);
+            const result = registeredUsers.filter((user) =>
+                user.password===input.get("password") && user.username===input.get("username"));
+            if (result.length>0) {
+                setActiveUser(result);
+                const userPlants = allPlants.filter((plant) => plant.owner===input.get("username"));
+                setPlants(userPlants);
+                let waterDates = findWateringDates(userPlants)
+                setWateringDates(waterDates);
+                let dates = findSchedule(userPlants);
+                setUsefulDates(dates);
+                let duties = findDuties(userPlants);
+                setDutiesByPlant(duties);
+                sessionStorage.setItem("user", JSON.stringify(result[0]));
+                sessionStorage.setItem("userPlants", JSON.stringify(userPlants));
+                sessionStorage.setItem("dates", JSON.stringify(dates));
+                sessionStorage.setItem("duties", JSON.stringify(duties));
+                setTimeout(() => {
+                    setLoggedIn(true);
+                }, 1500);
 
-        } else {
-            alert("These credentials are not registered. Check your username and password, or sign up below!")}
-    }
+            } else {
+                alert("These credentials are not registered. Check your username and password, or sign up below!")
+            }
+        }else{
+            console.log("this is not good, wait a bit!")
+    }}
 
     async function handleSignUp (event)  {
         event.preventDefault();
@@ -120,33 +133,50 @@ function App() {
                 email: input.get("email"),
                 password: input.get("password"),
                 username: input.get("location")})
-            setActiveUser([{
+            const newUser = [{
                 firstName: input.get("firstName"),
                 lastName: input.get("lastName"),
                 email: input.get("email"),
                 password: input.get("password"),
-                username: input.get("username")}]);
+                username: input.get("username")}];
+            setActiveUser(newUser)
             setLoggedIn(true);
-            sessionStorage.setItem("username", input.get("username"));
-            sessionStorage.setItem("password", input.get("password"));
+            sessionStorage.setItem("user", JSON.stringify(newUser));
         }
     }
 
 
 //FINDING THE RELEVANT DATES & DUTIES
+//DUTIES BY PLANT NAME
     function findDuties(userPlants) {
-        let activitiesByPlant = userPlants.map(obj => {
+        return userPlants.map(obj => {
             return {
                 name: obj.name,
                 activities: {
-                    watering: obj.watering.toDate(),
-                    repot: obj.repot.toDate(),
-                    fertilizing: obj.fertilizing.toDate()
+                    watering: new Date (obj.watering.toDate()).toLocaleDateString('en-GB'),
+                    repot: new Date (obj.repot.toDate()).toLocaleDateString('en-GB'),
+                    fertilizing: new Date (obj.fertilizing.toDate()).toLocaleDateString('en-GB')
                 }
             };
         });
-        return activitiesByPlant;
     }
+
+    function findWateringDates(userPlants){
+        const newWaterDates = userPlants
+            .map((item)=>(item.watering))
+            .map((item)=>(item.toDate()))
+            .map((item)=>(item.getTime()));
+        const size = newWaterDates.length;
+        const multiplier = wateringStep * 24 * 60 * 60 * 1000;
+        for (let i = 0; i < size; i++){
+            for (let j = 1; j < 5; j++) {
+                let newDate = newWaterDates[i] + (multiplier * j)
+                newWaterDates.push(newDate);
+            }
+        }
+        return newWaterDates;
+    }
+
 
 
     function findSchedule(userPlants) {
@@ -164,13 +194,37 @@ function App() {
         const userPicked = new Date(e);
         const daySelected = moment(userPicked).format('DD/MM/YYYY');
         setActiveDate(daySelected);
-        console.log("Active date after calendar click: " + daySelected);
         setOpen(true);
     }
+
+    function showDuties(){
+        console.log("DBP first, from inside the CalendarClick: " + dutiesByPlant[0])
+        dutiesByPlant
+            .filter((item) => (item.activities.watering===activeDate))
+            .map((item) => (foundWater.push(item.name)));
+        dutiesByPlant
+            .filter((item) => (item.activities.fertilizing===activeDate))
+            .map((item) => (foundFert.push(item.name)));
+        dutiesByPlant
+            .filter((item) => (item.activities.repot===activeDate))
+            .map((item) => (foundPot.push(item.name)));
+    }
+
+    if(activeDate && sessionDuties){
+        showDuties()
+    } else {
+            console.log("No active date present!")
+        }
 
     function handleClose () {
         setClose(true);
         setActiveDate("")
+    }
+
+
+//HANDLING HUMIDITY CHANGE
+    function handleHumidity(e) {
+        setHumidity(e.target.value)
     }
 
 
@@ -188,7 +242,10 @@ function App() {
         >
         { (loggedIn)
         ? ( <>
-           <Navbar activeUser={activeUser} />
+           <Navbar
+               activeUser={activeUser}
+               sessionUserPlants={sessionUserPlants}
+           />
                 <Routes>
                     <Route path="/" element={<Home
                         user={activeUser}
@@ -199,6 +256,11 @@ function App() {
                         open={open}
                         close={close}
                         handleClose={handleClose}
+                        foundWater={foundWater}
+                        foundPot={foundPot}
+                        foundFert={foundFert}
+                        humidity={humidity}
+                        handleHumidity={handleHumidity}
                     />} />
                     <Route path="/my-plants"  element={<Plants
                         user={activeUser}
@@ -209,10 +271,10 @@ function App() {
                     <Route path="/shop" element={<Shop
                         user={activeUser}
                     />} />
-                    <Route path="/account" element={<Account
+{/*                    <Route path="/account" element={<Navbar
                         user={activeUser}
                         plants={plants}
-                    />} />
+                    />} />*/}
                 </Routes>
             </>)
         : (<>
