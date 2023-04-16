@@ -13,7 +13,7 @@ import * as timeFunction from './timeFunctions';
 
 
 
-export default function DateCalendarServerRequest({ usefulDates, pickedDate }) {
+export default function DateCalendarServerRequest({ usefulDates, pickedDate, reallyUsefulDates }) {
 
     const requestAbortController = React.useRef(null);
     const [isLoading, setIsLoading] = React.useState(false);
@@ -80,10 +80,12 @@ export default function DateCalendarServerRequest({ usefulDates, pickedDate }) {
             }, 500);
             const timeout = setTimeout(() => {
                 let daysToHighlight = [];
-                const activeDatesInTimestamp = usefulDates.map(item => timeFunction.dateToUnixTimestamp(item));
-                const relevantDatesInTimestamp = activeDatesInTimestamp.filter((item) => item < endOfMonth && item > date);
+                /*const activeDatesInTimestamp = usefulDates.map(item => timeFunction.dateToUnixTimestamp(item));*/
 
-                const activeDatesToDays = relevantDatesInTimestamp.map(item => timeFunction.timestampToDay(item));
+                const onlyTimes = reallyUsefulDates.filter((item) => (item.time))
+                const relevantDatesInTimestamp = onlyTimes.filter((item) => item.time < endOfMonth && item.time > date);
+
+                const activeDatesToDays = relevantDatesInTimestamp.map(item => timeFunction.timestampToDay(item.time));
 
                 daysToHighlight = activeDatesToDays.map(parseFloat);
                 setHighlightedDays(daysToHighlight);

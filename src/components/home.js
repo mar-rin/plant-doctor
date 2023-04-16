@@ -66,6 +66,7 @@ export default function Home( props ) {
                         plants={props.plants}
                         usefulDates={props.usefulDates}
                         pickedDate={props.pickedDate}
+                        reallyUsefulDates={props.reallyUsefulDates}
 
                     />
                     <AddEvent
