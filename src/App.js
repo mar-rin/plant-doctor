@@ -48,6 +48,7 @@ function App() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [close, setClose] = useState(false);
+    const [toggleClick, setToggleClick] = useState("visible")
 
 
 
@@ -152,45 +153,30 @@ function App() {
                 }
         });
         setDutiesByPlant(newDuties);
-        console.log("1 of DBP: " + newDuties[0].name)
-        console.log("1 of DBP: " + newDuties[0].duty)
-        console.log("1 of DBP: " + newDuties[0].time)
         return newDuties
     }
 
     function dateMultiplier(plants){
+        setToggleClick("none");
+        console.log("Am I triggered?")
         const waterDates = findWateringDates(plants);
         const fertDates = findFertingDates(plants);
         const potDates = findRepottingDates(plants);
+        console.log("waterDates 2: " + waterDates[1].time)
         const mergedDates =[...waterDates, ...potDates, ...fertDates];
         const onlyFutureDates = mergedDates.filter(item => item.time > today.getTime());
         setReallyUsefulDates(onlyFutureDates);
         return onlyFutureDates;
+        setToggleClick("visible")
     }
 
     function findWateringDates(plants){
-        let adjustedStep = 0;
-        switch(humidity){
-            case 0:
-                adjustedStep = wateringStep * 0.3;
-                break;
-            case 25:
-                adjustedStep = wateringStep * 0.65;
-                break;
-            case 50:
-                adjustedStep = wateringStep;
-                break;
-            case 75:
-                adjustedStep = wateringStep * 1.35;
-                break;
-            case 100:
-                adjustedStep = wateringStep * 1.7;
-                break;
-            default:
-                break;
-        }
+        let multiplier = 24 * 3600 * 1000;
+        if(humidity===0) multiplier = wateringStep * 0.3 * 24 * 3600 * 1000;
+        else if (humidity===25) multiplier = wateringStep * 0.65 * 24 * 3600 * 1000;
+        else if (humidity===75) multiplier = wateringStep * 1.4 * 24 * 3600 * 1000;
+        else if (humidity===100) multiplier = wateringStep * 1.8 * 24 * 3600 * 1000;
         console.log("Humidity " + humidity)
-        console.log("Adjusted step " + adjustedStep)
         const newWaterDates = plants.map((item)=>{
             return {
                 name: item.name,
@@ -198,9 +184,8 @@ function App() {
                 time: item.watering.toDate().getTime()
         }});
         const size = newWaterDates.length;
-        const multiplier = adjustedStep * 24 * 60 * 60 * 1000;
         for (let i = 0; i < size; i++){
-            for (let j = 1; j < 5; j++) {
+            for (let j = 1; j < 9; j++) {
                 const newDate = {
                     name: newWaterDates[i].name,
                     duty: "watering",
@@ -344,6 +329,7 @@ function App() {
                         humidity={humidity}
                         handleHumidity={handleHumidity}
                         reallyUsefulDates={reallyUsefulDates}
+                        toggleClick={toggleClick}
                     />} />
                     <Route path="/my-plants"  element={<Plants
                         user={activeUser}

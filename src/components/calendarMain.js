@@ -13,7 +13,7 @@ import * as timeFunction from './timeFunctions';
 
 
 
-export default function DateCalendarServerRequest({ pickedDate, reallyUsefulDates }) {
+export default function DateCalendarServerRequest({ pickedDate, reallyUsefulDates, humidity, toggleClick }) {
 
     const requestAbortController = React.useRef(null);
     const [isLoading, setIsLoading] = React.useState(false);
@@ -40,7 +40,8 @@ export default function DateCalendarServerRequest({ pickedDate, reallyUsefulDate
     function fetchHighlightedDays (date) {
         const controller = new AbortController();
         fakeFetch(date, {signal: controller.signal,})
-            .then(({ daysToHighlight }) => {setIsLoading(false);
+            .then(({ daysToHighlight }) => {
+                setIsLoading(false);
             })
             .catch((error) => {
                 if (error.name !== 'AbortError') {
@@ -80,6 +81,7 @@ export default function DateCalendarServerRequest({ pickedDate, reallyUsefulDate
             }, 500);
             const timeout = setTimeout(() => {
                 let daysToHighlight = [];
+
                 /*const activeDatesInTimestamp = usefulDates.map(item => timeFunction.dateToUnixTimestamp(item));*/
 
                 const onlyTimes = reallyUsefulDates.filter((item) => (item.time))
@@ -90,6 +92,7 @@ export default function DateCalendarServerRequest({ pickedDate, reallyUsefulDate
                 daysToHighlight = activeDatesToDays.map(parseFloat);
                 setHighlightedDays(daysToHighlight);
                 resolve({ daysToHighlight });
+                setIsLoading(true)
             }, 500);
 
             signal.onabort = () => {
@@ -127,13 +130,14 @@ export default function DateCalendarServerRequest({ pickedDate, reallyUsefulDate
 
 
     return (
-        <div className="menu-bar" id="navBar">
+        <div className="menu-bar" id="navBar" style={{display: {toggleClick}}}>
             <Grid container spacing={1} direction="row" alignItems="center" justifyContent="center">
                 <Paper elevation={5} sx={{p: '10px'}}>
                     <Grid item xs={3}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             {(reallyUsefulDates.length>0) &&
                             <DateCalendar
+                                key={humidity}
                                 onChange={pickedDate}
                                 defaultValue={initialValue}
                                 loading={isLoading}

@@ -63,12 +63,18 @@ export default function Home( props ) {
             {(props.plants.length > 0)
                 ? <div>
                     <CalendarMain
+                        humidity={props.humidity}
                         plants={props.plants}
                         pickedDate={props.pickedDate}
                         reallyUsefulDates={props.reallyUsefulDates}
+                        toggleClick={props.toggleClick}
 
                     />
                     <AddEvent
+                        humidity={props.humidity}
+                        handleHumidity={props.handleHumidity}
+                    />
+                    <SpecialOffers
                         humidity={props.humidity}
                         handleHumidity={props.handleHumidity}
                     />
