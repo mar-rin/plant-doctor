@@ -34,41 +34,54 @@ export default function Navbar({ activeUser, sessionUserPlants }){
     return(
         <>
         <header>
-            <div className="logo-icon start">
-                <img src={fullLogo} alt="Logo" className="mainLogo" onClick={()=>navigate("/")} />
+            <div className="logo-box start">
+                <img src={fullLogo} alt="Logo" className="" onClick={()=>navigate("/")}
+                     style={{
+                         cursor: 'pointer',
+                         width: '100%',
+                         height: '100%',
+                         objectFit: 'contain',
+                         marginTop: '0px'
+                     }}/>
             </div>
-            <div className="center" id="navBar">
+            <div className="buttone-box center" id="navBar">
                 <Grid container spacing={1} direction="row" alignItems="center" justifyContent="center">
-                    <Grid item xs={2}>
+                    <Grid item xs={3}>
                         <Button className="menu-button"
                                 onClick={()=>{navigate("/")}}
                                 variant="contained"
                                 fullWidth
                                 sx={{ mt: 3, mb: 2 }}
-                                style={{backgroundColor:"#4f6059"}}>
+                                style={{backgroundColor:"#4f6059",
+                                    paddingTop: "10px",
+                                    paddingBottom: "10px",}}>
                             Home
                         </Button>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={3}>
                         <Button className="menu-button"
                                 onClick={()=>{navigate("/my-plants")}}
                                 variant="contained"
                                 fullWidth
                                 sx={{ mt: 3, mb: 2 }}
                                 style={{
-                                    backgroundColor:"#4f6059"
+                                    backgroundColor:"#4f6059",
+                                    paddingTop: "10px",
+                                    paddingBottom: "10px",
                                 }}>
                             My Plants
                         </Button>
                     </Grid>
-                    <Grid item xs={2}>
-                        <Button className="menu-button"
+                    <Grid item xs={3}>
+                        <Button className=""
                                 onClick={()=>{navigate("/shop")}}
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                                 style={{
-                                    backgroundColor:"#4f6059"
+                                    backgroundColor:"#4f6059",
+                                    paddingTop: "10px",
+                                    paddingBottom: "10px",
                                 }}>
                             Shop
                         </Button>

@@ -58,7 +58,13 @@ export default function Home( props ) {
 
 
     return(
-        <div>
+        <div className="body-box" style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+            width: '1150px',
+            height: '680px',
+            margin: 'auto',
+            marginTop: '20px',
+        }}>
             {(props.activeDate !== "") && <ShowDialog/>}
             {(props.plants.length > 0)
                 ? <div>
@@ -71,10 +77,6 @@ export default function Home( props ) {
 
                     />
                     <AddEvent
-                        humidity={props.humidity}
-                        handleHumidity={props.handleHumidity}
-                    />
-                    <SpecialOffers
                         humidity={props.humidity}
                         handleHumidity={props.handleHumidity}
                     />

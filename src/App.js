@@ -171,11 +171,11 @@ function App() {
     }
 
     function findWateringDates(plants){
-        let multiplier = 24 * 3600 * 1000;
-        if(humidity===0) multiplier = wateringStep * 0.3 * 24 * 3600 * 1000;
-        else if (humidity===25) multiplier = wateringStep * 0.65 * 24 * 3600 * 1000;
-        else if (humidity===75) multiplier = wateringStep * 1.4 * 24 * 3600 * 1000;
-        else if (humidity===100) multiplier = wateringStep * 1.8 * 24 * 3600 * 1000;
+        let multiplier = 24 * 3600 * 10000;
+        if(humidity===0) multiplier = wateringStep * 0.3 * 24 * 3600 * 10000;
+        else if (humidity===25) multiplier = wateringStep * 0.65 * 24 * 3600 * 10000;
+        else if (humidity===75) multiplier = wateringStep * 1.4 * 24 * 3600 * 10000;
+        else if (humidity===100) multiplier = wateringStep * 1.8 * 24 * 3600 * 10000;
         console.log("Humidity " + humidity)
         const newWaterDates = plants.map((item)=>{
             return {
@@ -207,7 +207,7 @@ function App() {
                 time: item.repot.toDate().getTime()
             }});
         const size = newRepotDates.length;
-        const multiplier = pottingStep * 24 * 60 * 60 * 1000;
+        const multiplier = pottingStep * 24 * 60 * 60 * 10000;
         for (let i = 0; i < size; i++){
             for (let j = 1; j < 7; j++) {
                 const newDate = {
@@ -231,7 +231,7 @@ function App() {
                 time: item.fertilizing.toDate().getTime()
             }});
         const size = newFertingDates.length;
-        const multiplier = fertingStep * 24 * 60 * 60 * 1000;
+        const multiplier = fertingStep * 24 * 60 * 60 * 10000;
         for (let i = 0; i < size; i++){
             for (let j = 1; j < 3; j++) {
                 const newDate = {

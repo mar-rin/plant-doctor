@@ -1,5 +1,12 @@
+
 body {
-    margin: 0 -10px;
+    background-image:url("./images/backGround.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: Roboto sans-serif;
+    text-align: center;
 
 }
 
@@ -22,11 +29,7 @@ body {
     width: 70%;
 }
 
-header {
-    padding: 30px 50px 0 50px;
-    display: flex;
-    justify-content: space-between;
-}
+
 
 .head-bar {
     display: inline-block;
@@ -38,7 +41,8 @@ header {
     min-width: 600px;
 }
 
-.menu-button {
+.menu-bar {
+    margin-bottom: 20px;
 }
 
 
@@ -46,7 +50,8 @@ header {
     justify-content: center;
     display: flex;
     font-size: 70px;
-    padding-top: 40px;
+    padding-top: 20px;
+    padding-bottom: -20px;
 
 }
 /*.mainLogo {*/
@@ -66,6 +71,7 @@ header {
 }
 
 .sign-container {
+    padding: 20px 0;
 }
 
 .start {
@@ -91,3 +97,33 @@ header {
 }
 
 
+header {
+    padding: 0 20px 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 20px;
+}
+
+.body-box {
+    padding-top: 40px;
+    margin-bottom: -20px;
+}
+
+.buttone-box {
+    width: 60%;
+    margin-left: -40px;
+}
+
+.logo-box {
+    width: 260px;
+    align-items: start;
+    height: 100px;
+}
+
+.account-icon {
+    width: 200px;
+    margin-top: 20px;
+    cursor: pointer;
+    margin-bottom: -10px;
+}
