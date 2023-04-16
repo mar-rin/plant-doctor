@@ -55,8 +55,14 @@ export default function Shop() {
 
 
     return (
-        <div className="container">
-            <div className="leftMenu">
+        <div className="container" style={{display: 'flex', flexDirection: 'row'}}>
+            <div className="leftMenu"
+                 style={{
+                     backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                     width: '25%',
+                     height: '100vh',
+                     padding: '10px'
+                 }}>
                 <Search handleSearch={handleSearch} />
                 <Categories handleCatFilter={handleCatFilter} catFilter={catFilter} />
                 <Price
@@ -65,7 +71,13 @@ export default function Shop() {
                     pricePoint={pricePoint}
                 />
             </div>
-            <div className="content">
+            <div className="content"
+                 style={{
+                     backgroundColor: 'white',
+                     width: '75%',
+                     height: 'auto',
+                     padding: '10px'
+                 }}>
                 <Products
                     search={search}
                     catFilter={catFilter}
@@ -81,8 +93,8 @@ export default function Shop() {
                 </Drawer> :
                 <button className="view-cart" onClick={()=>setOpen(true)}>View Cart</button>
             }
-
         </div>
+
     );
 }
 

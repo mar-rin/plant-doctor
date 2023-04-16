@@ -1,94 +1,139 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import fullLogo from "../images/fullLogo.png";
+import fullLogo from "../images/transparentLogo.png";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-export default function Navbar({ activeUser }){
+export default function Navbar({ activeUser, sessionUserPlants }){
 
     const navigate = useNavigate();
 
+
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const drawerRef = useRef(null);
+
+    function handleImageClick()  {
+        setIsDrawerOpen(!isDrawerOpen);
+    };
+
+    const handleClickOutside = (event) => {
+        if (drawerRef.current && !drawerRef.current.contains(event.target)) {
+            setIsDrawerOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+
     return(
+        <>
         <header>
-            <div className="head-bar">
-{/*                <Grid container alignItems="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    <Grid item xs={3}>
-                        <Logo />
-                    </Grid>
-                </Grid>*/}
-                <img src={fullLogo} alt="Logo" className="mainLogo" onClick={()=>navigate("/")} />
-                <div className="profile-box" onClick={()=>{navigate("/account")}}>
-                    < AccountCircleIcon  style={{width: "60px", fontSize: "50px"}} />
-                    <h3>Hello, {activeUser[0].firstName }! </h3>
-                </div>
+            <div className="logo-box start">
+                <img src={fullLogo} alt="Logo" className="" onClick={()=>navigate("/")}
+                     style={{
+                         cursor: 'pointer',
+                         width: '100%',
+                         height: '100%',
+                         objectFit: 'contain',
+                         marginTop: '0px'
+                     }}/>
             </div>
-            <div className="menu-bar" id="navBar">
+            <div className="buttone-box center" id="navBar">
                 <Grid container spacing={1} direction="row" alignItems="center" justifyContent="center">
-                    <Grid item xs={2}>
-                            <Button className="menu-button"
+                    <Grid item xs={3}>
+                        <Button className="menu-button"
                                 onClick={()=>{navigate("/")}}
-                                /*min-width="200px"*/
                                 variant="contained"
                                 fullWidth
                                 sx={{ mt: 3, mb: 2 }}
-                                style={{
-                                    backgroundColor:"#4f6059"
-                                }}>
-                                Home
-                            </Button>
+                                style={{backgroundColor:"#4f6059",
+                                    paddingTop: "10px",
+                                    paddingBottom: "10px",}}>
+                            Home
+                        </Button>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={3}>
                         <Button className="menu-button"
                                 onClick={()=>{navigate("/my-plants")}}
                                 variant="contained"
                                 fullWidth
                                 sx={{ mt: 3, mb: 2 }}
                                 style={{
-                                    backgroundColor:"#4f6059"
+                                    backgroundColor:"#4f6059",
+                                    paddingTop: "10px",
+                                    paddingBottom: "10px",
                                 }}>
                             My Plants
                         </Button>
                     </Grid>
-                    <Grid item xs={2}>
-                        <Button className="menu-button"
+                    <Grid item xs={3}>
+                        <Button className=""
                                 onClick={()=>{navigate("/shop")}}
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                                 style={{
-                                    backgroundColor:"#4f6059"
+                                    backgroundColor:"#4f6059",
+                                    paddingTop: "10px",
+                                    paddingBottom: "10px",
                                 }}>
                             Shop
                         </Button>
                     </Grid>
-                    {/*<Grid item xs={3}>
-                        <Button className="menu-button"
-                                onClick={()=>{navigate("/account")}}
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                                style={{
-                                    backgroundColor:"#4f6059"
-                                }}>
-                            Account
-                        </Button>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <Button className="menu-button"
-                                onClick={()=>{navigate("/login")}}
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                                style={{
-                                    backgroundColor:"#4f6059"
-                                }}>
-                            LogIn/SignUp
-                        </Button>
-                    </Grid>*/}
+                </Grid>
+            </div>
+            <div className="account-icon end"
+                 onClick={handleImageClick}>
+                < AccountCircleIcon  style={{width: "60px", fontSize: "50px"}} />
+                <h3>Hello, {activeUser[0].username }! </h3>
+            </div>
+        </header>
 
-            </Grid>
+        <div>
+            {isDrawerOpen && (
+                <div
+                    ref={drawerRef}
+                    style={{
+                        position: 'fixed',
+                        top: '0',
+                        right: '0',
+                        height: '100%',
+                        width: '30%',
+                        backgroundColor: 'white',
+                        boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+                        padding: '20px',
+                        boxSizing: 'border-box',
+                    }}
+                >
+                    <>
+                        {(activeUser) &&
+                             <>
+                                 <h1>{activeUser[0].username}'s Profile</h1>
+                                 <br></br>
+                                 <div>
+                                     <h3>First Name: {activeUser[0].firstName}    <button>Change</button></h3>
+                                     <h3>Last Name: {activeUser[0].lastName}    <button>Change</button></h3>
+                                     <h3>Email: {activeUser[0].email}    <button>Change</button></h3>
+                                     <h3>Passwor: {activeUser[0].password}    <button>Change</button></h3>
+                                     <h3>Username: {activeUser[0].username}    <button>Change</button></h3>
+                                     <hr className="dashed"></hr>
+                                     {(sessionUserPlants) &&
+                                     <h3>Number of Plants: {sessionUserPlants.length}    </h3>}
+                                 </div>
+
+                            </>
+                          }
+                    </>
+
+                </div>
+            )}
         </div>
-    </header>
+        </>
     )
 }

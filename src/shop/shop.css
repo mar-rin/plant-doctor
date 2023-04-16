@@ -10,6 +10,7 @@ body {
 .container {
     display: flex;
     padding: 50px;
+    flex-direction: column;
 }
 
 .leftMenu {
