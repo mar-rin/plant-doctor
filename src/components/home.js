@@ -64,7 +64,6 @@ export default function Home( props ) {
                 ? <div>
                     <CalendarMain
                         plants={props.plants}
-                        usefulDates={props.usefulDates}
                         pickedDate={props.pickedDate}
                         reallyUsefulDates={props.reallyUsefulDates}
 

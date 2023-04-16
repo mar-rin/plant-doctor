@@ -7,13 +7,10 @@ import Navbar from "./components/navBar";
 import {collection, doc, setDoc, getDocs} from "firebase/firestore";
 import {db} from './Utils/firebase';
 import './plantDoctor.css';
-import Account from "./components/account";
-import fullLogo from "./images/fullLogo.png";
 import LogInPage from "./components/logInPage";
-import AccountDrawer from "./components/account";
 import backGround from './images/backGround.png';
 import moment from 'moment';
-import * as timeFunction from '../src/components/timeFunctions';
+
 
 
 function App() {
@@ -37,10 +34,10 @@ function App() {
     let foundPot = [];
     const [humidity, setHumidity] = useState(50);
 //states for dates
-    const [usefulDates, setUsefulDates] = useState([]);
     const [reallyUsefulDates, setReallyUsefulDates] = useState([]);
     const [activeDate, setActiveDate] = useState("");
     const sessionDates = JSON.parse(sessionStorage.getItem("dates"));
+    const [activeDuties, setActiveDuties] = useState([]);
     const [dutiesByPlant, setDutiesByPlant] = useState([]);
     const sessionDuties = JSON.parse(sessionStorage.getItem("duties"));
     let wateringStep = 7;
@@ -78,7 +75,7 @@ function App() {
             setLoggedIn(true);
             setActiveUser([sessionUser])
             setPlants(sessionUserPlants);
-            setUsefulDates(sessionDates);
+            setReallyUsefulDates(sessionDates);
             setDutiesByPlant(sessionDuties);
         } else {
             fetchUsers();
@@ -99,11 +96,11 @@ function App() {
                 const userPlants = allPlants.filter((plant) => plant.owner===input.get("username"));
                 setPlants(userPlants);
                 const relevantDates = dateMultiplier(userPlants);
-                const dates = findSchedule(userPlants);
-                const duties = findDuties(userPlants);
+        /*        console.log("RelevantDates: " + relevantDates)*/
+                const duties = findDuties(relevantDates);
                 sessionStorage.setItem("user", JSON.stringify(result[0]));
                 sessionStorage.setItem("userPlants", JSON.stringify(userPlants));
-                sessionStorage.setItem("dates", JSON.stringify(dates));
+                sessionStorage.setItem("dates", JSON.stringify(relevantDates));
                 sessionStorage.setItem("duties", JSON.stringify(duties));
                 setTimeout(() => {
                     setLoggedIn(true);
@@ -146,18 +143,18 @@ function App() {
 
 //FINDING THE RELEVANT DATES & DUTIES
 //DUTIES BY PLANT NAME
-    function findDuties(userPlants) {
-        const newDuties = userPlants.map(obj => {
+    function findDuties(relevantDates) {
+        const newDuties = relevantDates.map(obj => {
             return {
                 name: obj.name,
-                activities: {
-                    watering: new Date (obj.watering.toDate()).toLocaleDateString('en-GB'),
-                    repot: new Date (obj.repot.toDate()).toLocaleDateString('en-GB'),
-                    fertilizing: new Date (obj.fertilizing.toDate()).toLocaleDateString('en-GB')
+                duty: obj.duty,
+                time: new Date(obj.time).toLocaleDateString('en-GB'),
                 }
-            };
         });
         setDutiesByPlant(newDuties);
+        console.log("1 of DBP: " + newDuties[0].name)
+        console.log("1 of DBP: " + newDuties[0].duty)
+        console.log("1 of DBP: " + newDuties[0].time)
         return newDuties
     }
 
@@ -166,25 +163,42 @@ function App() {
         const fertDates = findFertingDates(plants);
         const potDates = findRepottingDates(plants);
         const mergedDates =[...waterDates, ...potDates, ...fertDates];
-/*        console.log("Merged Dates, 1: " + mergedDates[0].name)
-        console.log("Merged Dates, 1: " + mergedDates[0].watering)*/
-/*        const onlyFutureDates = mergedDates.filter(item => item > today.getTime());
-        console.log("onlyFutureDates, 1: " + onlyFutureDates[0].name)
-        console.log("onlyFutureDates, 1: " + onlyFutureDates[0].watering)*/
-        setReallyUsefulDates(mergedDates);
+        const onlyFutureDates = mergedDates.filter(item => item.time > today.getTime());
+        setReallyUsefulDates(onlyFutureDates);
+        return onlyFutureDates;
     }
 
     function findWateringDates(plants){
-
+        let adjustedStep = 0;
+        switch(humidity){
+            case 0:
+                adjustedStep = wateringStep * 0.3;
+                break;
+            case 25:
+                adjustedStep = wateringStep * 0.65;
+                break;
+            case 50:
+                adjustedStep = wateringStep;
+                break;
+            case 75:
+                adjustedStep = wateringStep * 1.35;
+                break;
+            case 100:
+                adjustedStep = wateringStep * 1.7;
+                break;
+            default:
+                break;
+        }
+        console.log("Humidity " + humidity)
+        console.log("Adjusted step " + adjustedStep)
         const newWaterDates = plants.map((item)=>{
             return {
                 name: item.name,
+                duty: "watering",
                 time: item.watering.toDate().getTime()
         }});
-        console.log("newWaterDates after first mapping, 1: " + newWaterDates[0])
         const size = newWaterDates.length;
-        console.log("newWaterDates leng: " + newWaterDates.length)
-        const multiplier = wateringStep * 24 * 60 * 60 * 1000;
+        const multiplier = adjustedStep * 24 * 60 * 60 * 1000;
         for (let i = 0; i < size; i++){
             for (let j = 1; j < 5; j++) {
                 const newDate = {
@@ -193,16 +207,9 @@ function App() {
                     time: newWaterDates[i].time + (multiplier * j)
                 }
                 newWaterDates.push(newDate);
-                console.log("newWaterDates from the loop: " + newWaterDates)
             }
         }
         setWateringDates(newWaterDates);
-        console.log("returned newWaterDates, 1: " + newWaterDates[0].name)
-        console.log("returned newWaterDates, 1: " + newWaterDates[0].time)
-        console.log("returned newWaterDates, 10: " + newWaterDates[10].name)
-        console.log("returned newWaterDates, 10: " + newWaterDates[10].time)
-        console.log("returned newWaterDates, 20: " + newWaterDates[20].name)
-        console.log("returned newWaterDates, 20: " + newWaterDates[20].time)
         return newWaterDates;
     }
 
@@ -211,6 +218,7 @@ function App() {
         const newRepotDates = plants.map((item)=>{
             return {
                 name: item.name,
+                duty: "repot",
                 time: item.repot.toDate().getTime()
             }});
         const size = newRepotDates.length;
@@ -219,7 +227,7 @@ function App() {
             for (let j = 1; j < 7; j++) {
                 const newDate = {
                     name: newRepotDates[i].name,
-                    duty: "repotting",
+                    duty: "repot",
                     time: newRepotDates[i].time + (multiplier * j)
                 }
                 newRepotDates.push(newDate);
@@ -234,6 +242,7 @@ function App() {
         const newFertingDates = plants.map((item)=>{
             return {
                 name: item.name,
+                duty: "fertilizing",
                 time: item.fertilizing.toDate().getTime()
             }});
         const size = newFertingDates.length;
@@ -253,16 +262,7 @@ function App() {
     }
 
 
-    function findSchedule(userPlants) {
-        let dates = [];
-        userPlants.map((item) => {
-            dates.push(item.repot.toDate())
-            dates.push(item.watering.toDate())
-            dates.push(item.fertilizing.toDate())
-        });
-        setUsefulDates(dates);
-        return dates;
-    }
+
 
 //HANDLING CLICKS ON THE CALENDAR
     function pickedDate(e) {
@@ -273,19 +273,21 @@ function App() {
         findWateringDates(plants)
     }
 
+
     function showDuties(){
-        dutiesByPlant
-            .filter((item) => (item.activities.watering===activeDate))
+        const toDoOnThisDay = dutiesByPlant.filter((item) => (item.time===activeDate));
+        toDoOnThisDay
+            .filter((item) => (item.duty==="watering"))
             .map((item) => (foundWater.push(item.name)));
-        dutiesByPlant
-            .filter((item) => (item.activities.fertilizing===activeDate))
+        toDoOnThisDay
+            .filter((item) => (item.duty==="fertilizing"))
             .map((item) => (foundFert.push(item.name)));
-        dutiesByPlant
-            .filter((item) => (item.activities.repot===activeDate))
+        toDoOnThisDay
+            .filter((item) => (item.duty==="repot"))
             .map((item) => (foundPot.push(item.name)));
     }
 
-    if(activeDate && sessionDuties){
+    if(activeDate && activeDuties){
         showDuties()
     } else {
             console.log("No active date present!")
@@ -299,7 +301,13 @@ function App() {
 
 //HANDLING HUMIDITY CHANGE
     function handleHumidity(e) {
-        setHumidity(e.target.value)
+        if (e.target.value === humidity){
+            console.log("Watercycle stays the same")
+        } else {
+            setHumidity(e.target.value);
+            dateMultiplier(plants);
+        }
+
     }
 
 
@@ -325,7 +333,6 @@ function App() {
                     <Route path="/" element={<Home
                         user={activeUser}
                         plants={plants}
-                        usefulDates={usefulDates}
                         pickedDate={pickedDate}
                         activeDate={activeDate}
                         open={open}
@@ -341,8 +348,6 @@ function App() {
                     <Route path="/my-plants"  element={<Plants
                         user={activeUser}
                         plants={plants}
-                        usefulDates={usefulDates}
-                        dutiesByPlant={dutiesByPlant}
                     />} />
                     <Route path="/shop" element={<Shop
                         user={activeUser}

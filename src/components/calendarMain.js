@@ -13,7 +13,7 @@ import * as timeFunction from './timeFunctions';
 
 
 
-export default function DateCalendarServerRequest({ usefulDates, pickedDate, reallyUsefulDates }) {
+export default function DateCalendarServerRequest({ pickedDate, reallyUsefulDates }) {
 
     const requestAbortController = React.useRef(null);
     const [isLoading, setIsLoading] = React.useState(false);
@@ -132,7 +132,7 @@ export default function DateCalendarServerRequest({ usefulDates, pickedDate, rea
                 <Paper elevation={5} sx={{p: '10px'}}>
                     <Grid item xs={3}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            {(usefulDates.length>0) &&
+                            {(reallyUsefulDates.length>0) &&
                             <DateCalendar
                                 onChange={pickedDate}
                                 defaultValue={initialValue}
