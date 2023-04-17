@@ -4,8 +4,10 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import fullLogo from "../images/transparentLogo.png";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Paper from "@mui/material/Paper";
 
-export default function Navbar({ activeUser, sessionUserPlants }){
+
+export default function Navbar({ activeUser, sessionUserPlants, logOut }){
 
     const navigate = useNavigate();
 
@@ -96,7 +98,7 @@ export default function Navbar({ activeUser, sessionUserPlants }){
         </header>
 
         <div>
-            {isDrawerOpen && (
+            {isDrawerOpen &&
                 <div
                     ref={drawerRef}
                     style={{
@@ -111,28 +113,51 @@ export default function Navbar({ activeUser, sessionUserPlants }){
                         boxSizing: 'border-box',
                     }}
                 >
-                    <>
+
+                    <div>
                         {(activeUser) &&
-                             <>
-                                 <h1>{activeUser[0].username}'s Profile</h1>
-                                 <br></br>
-                                 <div>
-                                     <h3>First Name: {activeUser[0].firstName}    <button>Change</button></h3>
-                                     <h3>Last Name: {activeUser[0].lastName}    <button>Change</button></h3>
-                                     <h3>Email: {activeUser[0].email}    <button>Change</button></h3>
-                                     <h3>Password: {activeUser[0].password}    <button>Change</button></h3>
-                                     <h3>Username: {activeUser[0].username}    <button>Change</button></h3>
-                                     <hr className="dashed"></hr>
-                                     {(sessionUserPlants) &&
-                                     <h3>Number of Plants: {sessionUserPlants.length}    </h3>}
-                                 </div>
-
-                            </>
-                          }
-                    </>
-
+                        <div style={{
+                            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                            width: '500px',
+                            height: '700px',
+                            margin: 'auto',
+                        }}>
+                            <h1 style={{ fontSize: "3rem" }}>My account</h1>
+                            <Grid container spacing={1} direction="column" alignItems="center" justifyContent="center">
+                                <Grid item xs={2}>
+                                    <Paper elevation={5} style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        padding: '30px',
+                                        width: '400px',
+                                        height: '660px'
+                                    }}>
+                                        <AccountCircleIcon  style={{width: "200px", fontSize: "200px"}} />
+                                        <h1>{activeUser[0].username}'s Profile</h1>
+                                        <h3>Last Name: {activeUser[0].lastName}    <button>Change</button></h3>
+                                        <h3>Email: {activeUser[0].email}    <button>Change</button></h3>
+                                        <h3>Password: {activeUser[0].password}    <button>Change</button></h3>
+                                        <h3>Username: {activeUser[0].username}    <button>Change</button></h3>
+                                        {(sessionUserPlants) &&
+                                            <h3>Number of Plants: {sessionUserPlants.length}    </h3>}
+                                        <Button className="menu-button"
+                                                onClick={logOut}
+                                                fullWidth
+                                                variant="contained"
+                                                sx={{ mt: 3, mb: 2 }}
+                                                style={{
+                                                    backgroundColor:"#4F6059"
+                                                }}>
+                                            Log Out
+                                        </Button>
+                                    </Paper>
+                                </Grid>
+                            </Grid>
+                        </div>}
+                    </div>
                 </div>
-            )}
+            }
         </div>
         </>
     )

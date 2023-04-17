@@ -141,6 +141,11 @@ function App() {
         }
     }
 
+function logOut(){
+    setLoggedIn(false);
+    navigate("/")
+    }
+
 
 //FINDING THE RELEVANT DATES & DUTIES
 //DUTIES BY PLANT NAME
@@ -313,6 +318,7 @@ function App() {
            <Navbar
                activeUser={activeUser}
                sessionUserPlants={sessionUserPlants}
+               logOut={logOut}
            />
                 <Routes>
                     <Route path="/" element={<Home
@@ -330,6 +336,7 @@ function App() {
                         handleHumidity={handleHumidity}
                         reallyUsefulDates={reallyUsefulDates}
                         toggleClick={toggleClick}
+                        loggedIn={loggedIn}
                     />} />
                     <Route path="/my-plants"  element={<Plants
                         user={activeUser}
