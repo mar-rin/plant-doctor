@@ -65,6 +65,15 @@ function Plants(props){
 
 
     return(
+        <div style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+            width: '95%',
+            height: 'auto',
+            padding: '10px',
+            marginTop: '20px',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+        }}>
         <Box sx={{width: '100%'}}>
             <Typography variant='h2'>Plant collection</Typography>
             <Box  sx={{m: 2, mt:1}} display='flex' flexDirection='row' justifyContent='right'>
@@ -202,6 +211,7 @@ function Plants(props){
 
 
         </Box>
+        </div>
     )
 }
 

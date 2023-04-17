@@ -120,7 +120,7 @@ export default function Navbar({ activeUser, sessionUserPlants }){
                                      <h3>First Name: {activeUser[0].firstName}    <button>Change</button></h3>
                                      <h3>Last Name: {activeUser[0].lastName}    <button>Change</button></h3>
                                      <h3>Email: {activeUser[0].email}    <button>Change</button></h3>
-                                     <h3>Passwor: {activeUser[0].password}    <button>Change</button></h3>
+                                     <h3>Password: {activeUser[0].password}    <button>Change</button></h3>
                                      <h3>Username: {activeUser[0].username}    <button>Change</button></h3>
                                      <hr className="dashed"></hr>
                                      {(sessionUserPlants) &&

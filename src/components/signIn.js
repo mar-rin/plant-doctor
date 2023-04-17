@@ -29,7 +29,7 @@ function SignIn({ handleLogIn }) {
                             required
                             fullWidth
                             id="username"
-                            label="username"
+                            label="Username"
                             name="username"
                             autoComplete="username"
                             autoFocus
